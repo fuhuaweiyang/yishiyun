@@ -16,6 +16,7 @@ const ButtonDetail = (props: any) => {
             <View style={styles.navs}>
                 <View style={styles.textView}>
                     <Text style={styles.textType}>{props.title}</Text>
+                    <Text style={styles.textDetail}>{props.detail}</Text>
                 </View>
                 <Pressable
                     onPress={() => setOn(!on)}>
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textView: {
-        
+        width: screenWidth * 0.65,
+        marginRight: screenWidth * 0.05
     },
     textType: {
         fontSize: 16,
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
         color: '#000',
     },
     textDetail: {
-        fontSize: 15,
+        fontSize: 13,
         textAlignVertical: 'center',
         color: '#c0c0c0',
     },

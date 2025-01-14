@@ -35,7 +35,7 @@ const CreatorCenter = (props: any) => {
       style={[
         styles.container,
         {
-          backgroundColor: props.isDark ? '#181818' : '#fff',
+          backgroundColor: '#fff',
         },
       ]}>
       <View style={styles.title}>
@@ -50,7 +50,7 @@ const CreatorCenter = (props: any) => {
               key={index}>
               <Image
                 style={styles.icon}
-                source={props.isDark ? item.darkIcon : item.lightIcon}
+                source={item.lightIcon}
               />
               <ContainerText style={styles.text}>{item.title}</ContainerText>
             </Pressable>

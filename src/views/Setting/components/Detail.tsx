@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Pressable, Alert, Text, StyleSheet } from 'react-native'
+import { View, Image, Pressable, Alert, Text, StyleSheet, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 const CreatorCenter = (props: any) => {
     const navigation = useNavigation()
@@ -23,9 +23,14 @@ const CreatorCenter = (props: any) => {
                 <Pressable
                     style={styles.item}
                     onPress={() => handleJump()}>
-                    <View style={styles.textItem}>
-                        <Text style={styles.textType}>{props.title}</Text>
-                        <Text style={styles.textDetail}>{props.value}</Text>
+                    <View>
+                        <View style={styles.textItem}>
+                            <View style={styles.textView}>
+                                <Text style={styles.textType}>{props.title}</Text>
+                                {props.detail && <Text style={styles.textDetail}>{props.detail}</Text>}
+                            </View>
+                            <Text style={styles.textDetail}>{props.value}</Text>
+                        </View>
                     </View>
                     <Image style={styles.icon} source={require('../../../assets/icons/anythink_browser_right_icon.png')} />
                 </Pressable>
@@ -33,6 +38,8 @@ const CreatorCenter = (props: any) => {
         </View>
     )
 }
+const screenWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     container: {
         borderRadius: 5,
@@ -46,6 +53,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '90%',
+    },
+    textView: {
+        width: screenWidth * 0.7,
+    },
+    textDetail: {
+        fontSize: 13,
+        textAlignVertical: 'center',
+        color: '#c0c0c0',
     },
     navs: {
         display: 'flex',
@@ -66,11 +81,6 @@ const styles = StyleSheet.create({
         width: '90%',
         textAlignVertical: 'center',
         color: '#000',
-    },
-    textDetail: {
-        fontSize: 15,
-        textAlignVertical: 'center',
-        color: '#c0c0c0',
     },
     icon: {
         display: 'flex',

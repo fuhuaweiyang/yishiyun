@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 
 const Login = () => {
   const navigation = useNavigation()
-  const { isDark } = useTheme()
   const handleLogin = () => {
     
     navigation.replace('Index')
@@ -27,11 +26,7 @@ const Login = () => {
       <PageView style={styles.container}>
         <Pressable onPress={handleLogin}>
           <Image
-            source={
-              isDark
-                ? require('../../assets/login/close-dark.png')
-                : require('../../assets/login/close-light.png')
-            }
+            source={require('../../assets/login/close-light.png')}
             style={styles.close}
           />
         </Pressable>
@@ -70,10 +65,7 @@ const Login = () => {
       <PageView style={styles.container}>
         <Pressable onPress={handleClose}>
           <Image
-            source={
-              isDark
-                ? require('../../assets/login/close-dark.png')
-                : require('../../assets/login/close-light.png')
+            source={ require('../../assets/login/close-light.png')
             }
             style={styles.close}
           />

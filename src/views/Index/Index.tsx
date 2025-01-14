@@ -17,7 +17,7 @@ const Index = () => {
     Alert.alert('错误', '请输入用户名和密码');
     // 在这里处理点击事件逻辑
   };
-  const { backgroundColor, isDark } = useTheme()
+  const { backgroundColor } = useTheme()
   return (
     <Tab.Navigator
       initialRouteName="Home"

@@ -51,7 +51,7 @@ const CreatorCenter = (props: any) => {
       style={[
         styles.container,
         {
-          backgroundColor: props.isDark ? '#181818' : '#fff',
+          backgroundColor:  '#fff',
         },
       ]}>
       <View style={styles.navs}>

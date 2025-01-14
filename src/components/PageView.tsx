@@ -8,13 +8,13 @@ interface Props extends ViewProps {
   children?: React.ReactNode
 }
 const PageView = (props: Props) => {
-  const { backgroundColor, isDark } = useTheme()
+  const { backgroundColor } = useTheme()
   const { children, style = {}, key } = props
   return (
     <View {...props} key={key} style={[{ backgroundColor, flex: 1 }, style]}>
       <StatusBar
         backgroundColor={backgroundColor}
-        barStyle={isDark ? 'light-content' : 'dark-content'}
+        barStyle={'light-content'}
       />
       {children}
     </View>

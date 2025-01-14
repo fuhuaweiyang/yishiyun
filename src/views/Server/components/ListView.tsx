@@ -37,7 +37,7 @@ const FastNav = (props: any) => {
       style={[
         styles.container,
         {
-          backgroundColor: props.isDark ? '#181818' : '#fff',
+          backgroundColor: '#fff',
         },
       ]}>
       {tabs.map((item, index) => {
