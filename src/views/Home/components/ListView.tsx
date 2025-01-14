@@ -1,7 +1,6 @@
 import React, { useState, memo } from 'react'
 import useTheme from '../../../hooks/useTheme'
-import styleSheet from '../../../utils/styleSheet'
-import { View, Text, Image, Alert, TouchableOpacity } from 'react-native'
+import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import SystemMessage from './Device'
 import WarnMessage from './Group'
 import PopWindow from './PopWindow'
@@ -57,7 +56,7 @@ const ListView = ({ ifshowpop, reversal }) => {
   )
 }
 
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   img: {
     width: 30,
     height: 30,

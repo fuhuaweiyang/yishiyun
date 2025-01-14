@@ -1,8 +1,7 @@
 import React from 'react'
-import { Image, Alert, Pressable } from 'react-native'
+import { Image, Alert, Pressable,StyleSheet  } from 'react-native'
 import ContainerView from '../../../components/ContainerView'
 import ContainerText from '../../../components/ContainerText'
-import styleSheet from '../../../utils/styleSheet'
 import { useNavigation } from '@react-navigation/native'
 const FastNav = (props: any) => {
   const navigation = useNavigation()
@@ -54,7 +53,7 @@ const FastNav = (props: any) => {
     </ContainerView>
   )
 }
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',

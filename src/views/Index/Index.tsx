@@ -1,6 +1,5 @@
 import React from 'react'
-import { Image, TouchableOpacity, Alert, Text } from 'react-native'
-import styleSheet from '../../utils/styleSheet'
+import { Image, TouchableOpacity, Alert, Text, StyleSheet } from 'react-native'
 import Home from '../Home/Index'
 import Massage from '../Massage/Index'
 import My from '../My/Index'
@@ -116,7 +115,7 @@ const Index = () => {
     </Tab.Navigator>
   )
 }
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   index: {
     paddingBottom: 80,
   },

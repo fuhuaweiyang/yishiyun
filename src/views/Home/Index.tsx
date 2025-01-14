@@ -1,9 +1,8 @@
 import React from 'react'
-import { Image, Pressable } from 'react-native'
+import { Image, Pressable,StyleSheet } from 'react-native'
 import PageView from '../../components/PageView'
 import ContainerView from '../../components/ContainerView'
 import ListView from './components/ListView'
-import styleSheet from '../../utils/styleSheet'
 import { useNavigation } from '@react-navigation/native'
 const Home = () => {
   const navigation = useNavigation()
@@ -18,7 +17,7 @@ const Home = () => {
     </PageView>
   )
 }
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
   },

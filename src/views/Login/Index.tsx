@@ -1,9 +1,8 @@
 import React,{useState} from 'react'
-import { Image, Pressable } from 'react-native'
+import { Image, Pressable,StyleSheet } from 'react-native'
 import PageView from '../../components/PageView'
 import ContainerView from '../../components/ContainerView'
 import ContainerText from '../../components/ContainerText'
-import styleSheet from '../../utils/styleSheet'
 import useTheme from '../../hooks/useTheme'
 import { useNavigation } from '@react-navigation/native'
 import ListView from './components/ListView'
@@ -87,7 +86,7 @@ const Login = () => {
     )
   }
 }
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   container: {},
   title: {
     marginTop: 20,

@@ -1,8 +1,7 @@
 import React, { useState, memo } from 'react'
 import Calendar from './Calendar'
 import useTheme from '../../../hooks/useTheme'
-import styleSheet from '../../../utils/styleSheet'
-import { View, Text, Image, Alert, TouchableOpacity } from 'react-native'
+import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import SystemMessage from './SystemMessage'
 import WarnMessage from './WarnMessage'
 import Popover from 'react-native-popover-view';
@@ -60,7 +59,7 @@ const ListView = () => {
   )
 }
 
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   img: {
     width: 30,
     height: 25,

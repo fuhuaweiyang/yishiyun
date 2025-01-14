@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, Alert, Pressable, View, Text } from 'react-native';
-import styleSheet from '../../../utils/styleSheet';
+import { Image, Alert, Pressable, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const FastNav = (props: any) => {
@@ -58,7 +57,7 @@ const FastNav = (props: any) => {
   );
 };
 
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',

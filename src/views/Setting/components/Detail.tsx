@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Image, Pressable, Alert, Text } from 'react-native'
-import styleSheet from '../../../utils/styleSheet'
+import { View, Image, Pressable, Alert, Text, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 const CreatorCenter = (props: any) => {
     const navigation = useNavigation()
@@ -34,7 +33,7 @@ const CreatorCenter = (props: any) => {
         </View>
     )
 }
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
     container: {
         borderRadius: 5,
         padding: 15,

@@ -1,8 +1,7 @@
 import React, { memo, useState } from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import styleSheet from '../../../utils/styleSheet'
-import useTheme from '../../../hooks/useTheme'
 import AccountLogin from './AccountLogin'
+import {StyleSheet} from 'react-native'
 import PhoneLogin from './PhoneLogin'
 import ClickLogin from './ClickLogin'
 
@@ -40,6 +39,6 @@ function ListView(): React.JSX.Element {
     </Tab.Navigator>
   )
 }
-const styles = styleSheet.create({
+const styles = StyleSheet.create({
 })
 export default memo(ListView)
