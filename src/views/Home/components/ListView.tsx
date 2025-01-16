@@ -1,8 +1,8 @@
 import React, { useState, memo } from 'react'
 import useTheme from '../../../hooks/useTheme'
 import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
-import SystemMessage from './Device'
-import WarnMessage from './Group'
+import Device from './Device'
+import Group from './Group'
 import PopWindow from './PopWindow'
 import Popover from 'react-native-popover-view';
 import { connect } from 'react-redux'
@@ -42,8 +42,8 @@ const ListView = ({ ifshowpop, reversal }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      {activeTab === 'system' && <SystemMessage />}
-      {activeTab === 'warn' && <WarnMessage />}
+      {activeTab === 'system' && <Device />}
+      {activeTab === 'warn' && <Group />}
 
       <View style={styles.headerRight}>
         {/* <Image source={require('./../../../assets/icons/more.png')} style={styles.img} /> */}

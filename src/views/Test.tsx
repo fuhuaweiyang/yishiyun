@@ -1,96 +1,75 @@
-import React, {useRef} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
-
-// import PullToRefreshAndroid from '../components/refresh-control/PullToRefresh.android';
-import PullToRefreshAndroid from '../components/refresh-control/PullToRefreshClassicsHeader.android';
-import PullToRefreshBezierRadarHeader from '../components/refresh-control/PullToRefreshBezierRadarHeader.android';
-
-type Item = {
-  title: string;
-  id?: string;
-};
-
-type PullToRefreshAndroid = {
-  handleFinishRefresh: () => void;
-};
-
-// item高度
-const ITEM_HEIGHT: number = 70;
-
-// 数据
-let DATA = Array.from({length: 20}, (_, index) => {
-  return {
-    title: `React非常好用👍-${index}`,
-    id: `${index}`,
-  };
-});
-
-// item
-const Item = ({title}: Item) => {
-  return (
-    <View style={styles.itemWrapper}>
-      <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-      </View>
-    </View>
-  );
-};
-
-// 渲染item
-const renderItem = ({item}: {item: Item}) => <Item title={item.title} />;
-
-const Home: React.FC<{}> = () => {
-  // 安卓下拉刷新组件
-  const pullToRefreshAndroid = useRef<PullToRefreshAndroid>(null);
+import React, { useState } from "react";
+import { View, TouchableOpacity,SafeAreaView, StyleSheet, Image, Dimensions } from "react-native";
+import Video from "react-native-video";
+import Icon from "react-native-vector-icons/MaterialIcons";
+const Test = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <View style={styles.wrapper}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        getItemLayout={(data, index) => ({
-          length: ITEM_HEIGHT,
-          offset: ITEM_HEIGHT * index,
-          index,
-        })}
-        keyExtractor={item => item.id}
-        refreshControl={
-          <PullToRefreshBezierRadarHeader
-            onRefresh={() => {
-              console.log('开始刷新');
-
-              setTimeout(() => {
-                pullToRefreshAndroid.current?.handleFinishRefresh();
-              }, 1000);
-            }}
-            ref={pullToRefreshAndroid}
+      <View style={styles.container}>
+        {!isPlaying ? (
+          <View style={styles.thumbnailContainer}>
+            <Image source={require("../assets/88544965_p0.png")} style={styles.thumbnail} />
+            <TouchableOpacity
+              style={styles.playButton}
+              onPress={() => setIsPlaying(true)}
+            >
+              <Icon name="play-arrow" size={50} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <Video
+            source={require("../assets/fireFly.mp4")}
+            style={styles.video}
+            resizeMode="cover"
+            controls={true}
+            onEnd={() => setIsPlaying(false)} // 视频结束后返回初始状态
           />
-        }
-      />
-    </View>
+        )}
+      </View>
   );
 };
+const screenWidth = Dimensions.get('window').width;
 
-// styles
+const VideoWidth = screenWidth
+const VideoHeight = screenWidth * 0.7
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: VideoWidth,
+    height: VideoHeight,
+    borderRadius: 15,
   },
-  itemWrapper: {
-    padding: 10,
-    height: ITEM_HEIGHT,
+  thumbnailContainer: {
+    width: VideoWidth,
+    height: VideoHeight,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden", // 确保父容器隐藏溢出部分
+    borderRadius: 15, // 圆角
   },
-  item: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#5B8EFF',
-    borderRadius: 5,
+  thumbnail: {
+    width: VideoWidth,
+    height: VideoHeight,
+    position: "absolute",
+    borderRadius: 15, // 圆角
+    overflow: "hidden",
   },
-  title: {
-    color: '#ffffff',
-    fontSize: 16,
+  
+  playButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  video: {
+    width: VideoWidth,
+    height: VideoHeight,
   },
 });
 
-export default Home;
+export default Test;

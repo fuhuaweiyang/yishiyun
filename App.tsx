@@ -35,7 +35,7 @@ function App(): React.JSX.Element {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Server" component={Server} />
             <Stack.Screen name="PersonDetail" component={PersonDetail} />
-            <Stack.Screen name="Setting" component={Test} />
+            <Stack.Screen name="Setting" component={Setting} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
