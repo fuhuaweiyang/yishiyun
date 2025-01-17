@@ -4,11 +4,11 @@ import { useNavigation } from '@react-navigation/native'
 const CreatorCenter = (props: any) => {
     const navigation = useNavigation()
     const handleJump = () => {
-        Alert.alert('功能开发中...')
+        Alert.alert('功能开发ing...')
         // if (routeName) {
         //     navigation.navigate(routeName as never)
         // } else {
-        //     Alert.alert('功能开发中...')
+        //     Alert.alert('功能开发ing...')
         // }
     }
     return (

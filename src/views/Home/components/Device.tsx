@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-import {  reversalIsShowMore, reversal } from "../../../action/index";
+import { reversalIsShowMore, reversal, reversalIfOffLine } from "../../../action/index";
 import Video from "react-native-video";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MoreFunc from './MoreFunc';
 
-const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal,  }) => {
+const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline }) => {
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -20,13 +20,26 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal,  }) => {
           </View>
           {!isPlaying ? (
             <View style={styles.thumbnailContainer}>
-              <Image source={require("./../../../assets/1.png")} style={styles.thumbnail} />
-              <TouchableOpacity
-                // style={styles.playButton}
-                onPress={() => setIsPlaying(true)}
+              <ImageBackground source={require("./../../../assets/1.png")} style={[styles.thumbnail]}>
+                <View style={ifOffline && styles.thumbnailMask}></View>
+                <View>
+                </View>
+              </ImageBackground>
+              <TouchableOpacity onPress={() => {
+                if (!ifOffline) { setIsPlaying(true) }
+              }}
               >
-                <Image style={styles.playImg} source={require("./../../../assets/icons/adsail_player_center_play.png")}></Image>
+                <Image
+                  style={styles.playImg}
+                  source={ifOffline ? require("./../../../assets/icons/offline.webp") // 离线图标
+                    : require("./../../../assets/icons/adsail_player_center_play.png") // 播放图标
+                  }
+                />
               </TouchableOpacity>
+              <Text style={[styles.maskText,{fontSize: 16}]}>设备离线了</Text>
+              <View style={styles.maskButton}>
+                <Text style={[styles.maskText,{fontSize: 14}]}>查看帮助</Text>
+              </View>
             </View>
           ) : (
             <Video
@@ -37,6 +50,7 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal,  }) => {
               onEnd={() => setIsPlaying(false)} // 视频结束后返回初始状态
             />
           )}
+
         </View>
         <View style={styles.bottonView}>
           <Text style={styles.text}>我的摄像机</Text>
@@ -65,11 +79,13 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal,  }) => {
 
 const mapStateToProps = (state) => ({
   isShowMore: state.ifShow.isShowMore,
+  ifOffline: state.ifShow.ifOffline,
 });
 
 const mapDispatchToProps = {
   reversalIsShowMore,
-  reversal
+  reversal,
+  reversalIfOffLine
 };
 
 const screenWidth = Dimensions.get('window').width;
@@ -115,6 +131,14 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 0,
   },
+  thumbnailMask: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // 半透明黑色遮罩
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   text: {
     color: '#505859',
     fontSize: 20,
@@ -136,6 +160,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
+  },
+  maskText: {
+    color: '#fff',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+  maskButton: {
+    borderRadius: 100,
+    backgroundColor: '#4c9fff99',
+    width: 90,
+    height: 30,
+    marginTop: 10,
+    display: 'flex',
+    justifyContent: 'center',
   },
   roundedBox: {
     width: VideoWidth, // 根据需要调整图片的宽度

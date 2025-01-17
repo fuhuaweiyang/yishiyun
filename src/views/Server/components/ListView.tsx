@@ -8,7 +8,7 @@ const FastNav = (props: any) => {
     if (routeName) {
       navigation.navigate(routeName as never);
     } else {
-      Alert.alert('功能开发中...');
+      Alert.alert('功能开发ing...');
     }
   };
 

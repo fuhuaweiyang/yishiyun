@@ -1,12 +1,12 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Dimensions, Text, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Dimensions, Text, Image, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient'; // 引入 LinearGradient
 import SpliteLine from "../../../components/SpliteLine";
 import PopDetail from "./PopDetail";
-import { reversalIsShowMore } from "../../../action/index";
+import { reversalIsShowMore, reversalIfOffLine, reversal } from "../../../action/index";
 
-const MoreFunc = ({ isShowMore, reversalIsShowMore }) => {
+const MoreFunc = ({ reversalIsShowMore ,reversalIfOffLine,ifOffline}) => {
     return (
         <View style={styles.fullScreen}>
             <TouchableOpacity onPress={reversalIsShowMore} style={styles.fullScreen}>
@@ -19,8 +19,10 @@ const MoreFunc = ({ isShowMore, reversalIsShowMore }) => {
                 >
                     <Text style={styles.headerText}>摄像机</Text>
                     <View style={styles.HeaderListView}>
-                        <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image>
-                        <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image>
+                        <TouchableOpacity onPress={reversalIfOffLine}>
+                            <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image>
+                        </TouchableOpacity>
+                        {/* <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image> */}
                     </View>
                 </LinearGradient>
                 <SpliteLine lineHeight={2} color="#ccc" style={styles.spliteLine} />
@@ -30,9 +32,7 @@ const MoreFunc = ({ isShowMore, reversalIsShowMore }) => {
                     <PopDetail title="录像回放" />
                     <PopDetail title="设备设置" />
                     <PopDetail title="设备分享" />
-                    <TouchableOpacity onPress={reversalIsShowMore}>
-                        <PopDetail title="删除设备" />
-                    </TouchableOpacity>
+                    <PopDetail title={ifOffline.toString()} />
                 </View>
             </View>
         </View>
@@ -40,11 +40,15 @@ const MoreFunc = ({ isShowMore, reversalIsShowMore }) => {
 };
 
 const mapStateToProps = (state) => ({
-    isShowMore: state.ifShow.isShowMore,
+    ifshowpop: state.ifShow.ifshowpop,
+    ifOffline: state.ifShow.ifOffline,
+
 });
 
 const mapDispatchToProps = {
-    reversalIsShowMore
+    reversalIsShowMore,
+    reversalIfOffLine,
+    reversal
 };
 
 const screenWidth = Dimensions.get('window').width;
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         overflow: 'hidden',
-    },
+    },  
     linearGradient: {
         width: HeaderWidth,
         height: 50,

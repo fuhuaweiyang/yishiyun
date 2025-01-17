@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 const initialState = {
   ifshowpop: false,
   isShowMore: false,
+  ifOffline: false,
 };
 
 function ifShowReducer(state = initialState, action) {
@@ -11,7 +12,11 @@ function ifShowReducer(state = initialState, action) {
       return { ...state, ifshowpop: !state.ifshowpop };
     case 'REVERSALIsShowMore':
       return { ...state, isShowMore: !state.isShowMore };
+    case 'REVERSALIfOFFLINE':
+      console.log('REVERSALIfOFFLINE');
+      return { ...state, ifOffline: !state.ifOffline };
     default:
+      console.log('default');
       return state;
   }
 }
