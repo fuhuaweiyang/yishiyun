@@ -1,11 +1,12 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { reversal } from "../../../action/index";
+import {  reversalIsShowMore, reversal } from "../../../action/index";
 import Video from "react-native-video";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import MoreFunc from './MoreFunc';
 
-const CenteredImage = ({ ifshowpop, reversal }) => {
+const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal,  }) => {
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -13,6 +14,10 @@ const CenteredImage = ({ ifshowpop, reversal }) => {
     <View style={[styles.container, { width, height }]}>
       <View style={styles.roundedBox}>
         <View style={styles.containerVideo}>
+          <View style={styles.stateIconView}>
+            <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon}></Image>
+            {/* <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon}></Image> */}
+          </View>
           {!isPlaying ? (
             <View style={styles.thumbnailContainer}>
               <Image source={require("./../../../assets/1.png")} style={styles.thumbnail} />
@@ -20,7 +25,7 @@ const CenteredImage = ({ ifshowpop, reversal }) => {
                 // style={styles.playButton}
                 onPress={() => setIsPlaying(true)}
               >
-                <Image style={styles.playImg} source={require("./../../../assets/icons/adsail_player_center_play.png") }></Image>
+                <Image style={styles.playImg} source={require("./../../../assets/icons/adsail_player_center_play.png")}></Image>
               </TouchableOpacity>
             </View>
           ) : (
@@ -33,6 +38,20 @@ const CenteredImage = ({ ifshowpop, reversal }) => {
             />
           )}
         </View>
+        <View style={styles.bottonView}>
+          <Text style={styles.text}>我的摄像机</Text>
+          <View style={styles.bottonIconView}>
+            <TouchableOpacity>
+              <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source={require('./../../../assets/icons/bell.png')} style={styles.bottomIcon}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={reversalIsShowMore}>
+              <Image source={require('./../../../assets/icons/commet-light.png')} style={styles.bottomIcon}></Image>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
       <View style={styles.AddRoundedBox}>
         <TouchableOpacity onPress={reversal}>
@@ -40,17 +59,19 @@ const CenteredImage = ({ ifshowpop, reversal }) => {
         </TouchableOpacity>
         <Text style={styles.addText}>添加摄像机</Text>
       </View>
+      {isShowMore && <MoreFunc/>}
     </View>
   );
 };
 
 const mapStateToProps = (state) => ({
-  ifshowpop: state.ifShow.ifshowpop,
+  isShowMore: state.ifShow.isShowMore,
 });
 
 const mapDispatchToProps = {
-  reversal
+  reversalIsShowMore
 };
+
 const screenWidth = Dimensions.get('window').width;
 
 const VideoWidth = screenWidth * 0.9
@@ -64,6 +85,31 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0, // 左下角无圆角
     borderBottomRightRadius: 0, // 右下角无圆角
   },
+  bottomIcon: {
+    width: 30,
+    height: 30,
+    marginBottom: 0,
+    marginRight: 10,
+
+  },
+  bottonView: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bottonIconView: {
+    position: 'absolute', // 使用绝对定位
+    right: 10,            // 距离右边10px
+    flexDirection: 'row', // 横向排列
+    alignItems: 'center', // 垂直居中
+  },
+  stateIconView: {
+    position: 'absolute', // 使用绝对定位
+    right: 10,            // 距离右边10px
+    top: 10,
+    flexDirection: 'row', // 横向排列
+    zIndex: 1,
+  },
   iconAdd: {
     width: 50,
     height: 50,
@@ -72,11 +118,11 @@ const styles = StyleSheet.create({
   text: {
     color: '#505859',
     fontSize: 20,
-    height: 60,
-    backgroundColor: '#edf4f3',
-    textAlignVertical: 'center',
+    height: 50,
     borderBottomLeftRadius: 20, // 左下角无圆角
     borderBottomRightRadius: 20,
+    textAlignVertical: 'center', // 垂直居中
+    marginLeft: 10,
   },
   addText: {
     color: '#505859',
@@ -93,14 +139,11 @@ const styles = StyleSheet.create({
   },
   roundedBox: {
     width: VideoWidth, // 根据需要调整图片的宽度
-    height: VideoHeight,
+    height: VideoHeight + 50,
     backgroundColor: '#ffffff',
     borderRadius: 20, // 设置圆角半径
     marginTop: 50,
     marginBottom: 20,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   AddRoundedBox: {
     width: VideoWidth, // 根据需要调整图片的宽度
@@ -119,7 +162,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: VideoWidth,
     height: VideoHeight,
-    borderRadius: 15,
+    borderTopLeftRadius: 20, // 左上角圆角
+    borderTopRightRadius: 20, // 右上角圆角
+    borderBottomLeftRadius: 0, // 左下角无圆角
+    borderBottomRightRadius: 0, // 右下角无圆角
     overflow: "hidden",
   },
   thumbnailContainer: {
@@ -128,13 +174,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden", // 确保父容器隐藏溢出部分
-    borderRadius: 15, // 圆角
+
   },
   thumbnail: {
     width: VideoWidth,
     height: VideoHeight,
     position: "absolute",
-    borderRadius: 15, // 圆角
+    borderTopLeftRadius: 20, // 左上角圆角
+    borderTopRightRadius: 20, // 右上角圆角
+    borderBottomLeftRadius: 0, // 左下角无圆角
+    borderBottomRightRadius: 0, // 右下角无圆角
     overflow: "hidden",
   },
   // playButton: {
@@ -153,7 +202,10 @@ const styles = StyleSheet.create({
     width: VideoWidth,
     height: VideoHeight,
     overflow: "hidden", // 确保父容器隐藏溢出部分
-    borderRadius: 15, // 圆角
+    borderTopLeftRadius: 20, // 左上角圆角
+    borderTopRightRadius: 20, // 右上角圆角
+    borderBottomLeftRadius: 0, // 左下角无圆角
+    borderBottomRightRadius: 0, // 右下角无圆角
   },
 });
 

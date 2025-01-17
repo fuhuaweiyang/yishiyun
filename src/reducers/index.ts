@@ -2,12 +2,15 @@ import { combineReducers } from 'redux';
 
 const initialState = {
   ifshowpop: false,
+  isShowMore: false,
 };
 
 function ifShowReducer(state = initialState, action) {
   switch (action.type) {
     case 'REVERSAL':
       return { ...state, ifshowpop: !state.ifshowpop };
+    case 'REVERSALIsShowMore':
+      return { ...state, isShowMore: !state.isShowMore };
     default:
       return state;
   }
