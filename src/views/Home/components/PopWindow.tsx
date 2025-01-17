@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         padding: 20,
+        zIndex: 1001,
     },
     Mask: {
         position: 'absolute',
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 1000,
+        zIndex: 10,
     },
     fullScreen: {
         position: 'relative',

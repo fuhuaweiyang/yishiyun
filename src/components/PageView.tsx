@@ -13,7 +13,8 @@ const PageView = (props: Props) => {
   return (
     <View {...props} key={key} style={[{ backgroundColor, flex: 1 }, style]}>
       <StatusBar
-        backgroundColor={backgroundColor}
+        backgroundColor="rgba(1, 1, 1, 0.5)"
+        translucent={false}
         barStyle={'light-content'}
       />
       {children}

@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Dimensions, Text, Image } from 'rea
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient'; // 引入 LinearGradient
 import SpliteLine from "../../../components/SpliteLine";
+import PopDetail from "./PopDetail";
 import { reversalIsShowMore } from "../../../action/index";
 
 const MoreFunc = ({ isShowMore, reversalIsShowMore }) => {
@@ -16,14 +17,22 @@ const MoreFunc = ({ isShowMore, reversalIsShowMore }) => {
                     colors={['#ebf9ff', '#ffffff']} // 渐变颜色从淡蓝到白色
                     style={styles.linearGradient}
                 >
-                    <Text style={styles.headerText}>我的摄像机</Text>
+                    <Text style={styles.headerText}>摄像机</Text>
                     <View style={styles.HeaderListView}>
-                        <Image></Image>
-
+                        <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image>
+                        <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image>
                     </View>
                 </LinearGradient>
                 <SpliteLine lineHeight={2} color="#ccc" style={styles.spliteLine} />
-                <View style={[ { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}>
+                <View style={[{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}>
+                    <PopDetail title="流量充值" />
+                    <PopDetail title="告警信息" />
+                    <PopDetail title="录像回放" />
+                    <PopDetail title="设备设置" />
+                    <PopDetail title="设备分享" />
+                    <TouchableOpacity onPress={reversalIsShowMore}>
+                        <PopDetail title="删除设备" />
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -41,7 +50,7 @@ const mapDispatchToProps = {
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-const HeaderWidth = screenWidth * 0.85; 
+const HeaderWidth = screenWidth * 0.85;
 const styles = StyleSheet.create({
     Mask: {
         position: 'absolute',
@@ -89,7 +98,17 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
     HeaderListView: {
-        
+        display: 'flex',
+        flexDirection: 'row',
+        position: 'absolute', // 使 HeaderListView 相对于其父容器定位
+        right: 20, // 距离右边框 10px
+        alignSelf: 'center',
+    },
+    HeaderListViewImg: {
+        width: 30,
+        height: 30,
+        alignSelf: 'center',
+        margin: 5,
     },
     spliteLine: {
         marginVertical: 0, // 分割线上下留白
