@@ -3,20 +3,22 @@ import useTheme from '../../../hooks/useTheme'
 import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import Device from './Device'
 import Group from './Group'
+import MoreFunc from './MoreFunc'
 import PopWindow from './PopWindow'
 import Popover from 'react-native-popover-view';
 import { connect } from 'react-redux'
-import { reversal } from "../../../action/index";
+import {  reversalIsShowMore, reversal } from "../../../action/index";
 
 
 const mapStateToProps = (state) => ({
   ifshowpop: state.ifShow.ifshowpop,
+  isShowMore: state.ifShow.isShowMore,
 });
 
 const mapDispatchToProps = {
   reversal
 };
-const ListView = ({ ifshowpop, reversal }) => {
+const ListView = ({ ifshowpop, reversal, isShowMore }) => {
   const { backgroundColor, color } = useTheme()
   const [activeTab, setActiveTab] = useState('system')
 
@@ -52,6 +54,7 @@ const ListView = ({ ifshowpop, reversal }) => {
         </TouchableOpacity>
       </View>
       {ifshowpop === true && <PopWindow></PopWindow>}
+      {isShowMore && <MoreFunc/>}
     </View >
   )
 }

@@ -59,7 +59,6 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal,  }) => {
         </TouchableOpacity>
         <Text style={styles.addText}>添加摄像机</Text>
       </View>
-      {isShowMore && <MoreFunc/>}
     </View>
   );
 };
@@ -69,7 +68,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  reversalIsShowMore
+  reversalIsShowMore,
+  reversal
 };
 
 const screenWidth = Dimensions.get('window').width;

@@ -26,7 +26,8 @@ const Index = () => {
       activeIndicatorStyle={{
         backgroundColor,
       }}
-      barStyle={{ backgroundColor }}>
+      barStyle={{ backgroundColor }}
+      style={styles.tabNavigator}>
       <Tab.Screen
         name="Home"
         options={{
@@ -124,5 +125,8 @@ const styles = StyleSheet.create({
     height: 25,
     marginBottom: 3,
   },
+  tabNavigator: {
+    height: 100
+  }
 })
 export default Index
