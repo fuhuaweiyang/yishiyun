@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-import { reversalIsShowMore, reversal, reversalIfOffLine } from "../../../action/index";
+import { reversalIsShowMore, reversal, reversalIfOffLine, reversalHelper } from "../../../action/index";
 import Video from "react-native-video";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MoreFunc from './MoreFunc';
 
-const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline }) => {
+const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, reversalHelper }) => {
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -22,24 +22,34 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline }) 
             <View style={styles.thumbnailContainer}>
               <ImageBackground source={require("./../../../assets/1.png")} style={[styles.thumbnail]}>
                 <View style={ifOffline && styles.thumbnailMask}></View>
-                <View>
-                </View>
+                <View></View>
               </ImageBackground>
-              <TouchableOpacity onPress={() => {
-                if (!ifOffline) { setIsPlaying(true) }
-              }}
+              <TouchableOpacity
+                onPress={() => {
+                  if (!ifOffline) {
+                    setIsPlaying(true);
+                  }
+                }}
               >
                 <Image
                   style={styles.playImg}
-                  source={ifOffline ? require("./../../../assets/icons/offline.webp") // 离线图标
-                    : require("./../../../assets/icons/adsail_player_center_play.png") // 播放图标
+                  source={
+                    ifOffline
+                      ? require("./../../../assets/icons/offline.webp") // 离线图标
+                      : require("./../../../assets/icons/adsail_player_center_play.png") // 播放图标
                   }
                 />
               </TouchableOpacity>
-              <Text style={[styles.maskText,{fontSize: 16}]}>设备离线了</Text>
-              <View style={styles.maskButton}>
-                <Text style={[styles.maskText,{fontSize: 14}]}>查看帮助</Text>
-              </View>
+              {ifOffline && (
+                <>
+                  <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
+                  <TouchableOpacity onPress={reversalHelper}>
+                    <View style={styles.maskButton}>
+                      <Text style={[styles.maskText, { fontSize: 14 }]}>查看帮助</Text>
+                    </View>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
           ) : (
             <Video
@@ -50,6 +60,7 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline }) 
               onEnd={() => setIsPlaying(false)} // 视频结束后返回初始状态
             />
           )}
+
 
         </View>
         <View style={styles.bottonView}>
@@ -85,7 +96,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   reversalIsShowMore,
   reversal,
-  reversalIfOffLine
+  reversalIfOffLine,
+  reversalHelper
 };
 
 const screenWidth = Dimensions.get('window').width;

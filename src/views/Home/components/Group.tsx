@@ -17,7 +17,7 @@ const CenteredImage = ({ reversal }) => {
   );
 };
 const mapStateToProps = (state) => ({
-  ifshowpop: state.ifShow.ifshowpop,
+  ifShowpop: state.ifShow.ifShowpop,
 });
 
 const mapDispatchToProps = {

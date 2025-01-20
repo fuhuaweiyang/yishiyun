@@ -1,29 +1,17 @@
 import React from "react";
 import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { reversal } from "../../../action/index";
+import { reversalHelper } from "../../../action/index";
 
-const PopWindow = ({ ifShowpop, reversal }) => {
+const PopWindow = ({ reversalHelper }) => {
     return (
         <View style={styles.fullScreen}>
-            <TouchableOpacity onPress={reversal} style={styles.fullScreen}>
+            <TouchableOpacity onPress={reversalHelper} style={styles.fullScreen}>
                 <View style={styles.Mask}>
                 </View>
             </TouchableOpacity>
             <View style={styles.AddRoundedBox}>
-                <Text style={styles.headerText}>请开启定位权限</Text>
-                <View style={styles.popWindow}>
-                    <Image source={require('./../../../assets/icons/icon_add_search_device.gif')} style={styles.img}></Image>
-                    <Text style={styles.contentText}>需要开启定位权限，用于获取附近的Wi-Fi信息完成设备联网</Text>
-                </View>
-                <View style={styles.buttonView}>
-                    <TouchableOpacity onPress={reversal}>
-                        <Text style={styles.buttonText}>取消</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={reversal}>
-                        <Text style={[styles.buttonText, { backgroundColor: '#4c9fff',color: '#fff' }]}>确定</Text>
-                    </TouchableOpacity>
-                </View>
+                
             </View>
         </View>
     );
@@ -34,7 +22,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    reversal
+    reversalHelper
 };
 
 const screenWidth = Dimensions.get('window').width;
