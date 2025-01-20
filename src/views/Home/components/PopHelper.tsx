@@ -10,8 +10,36 @@ const PopWindow = ({ reversalHelper }) => {
                 <View style={styles.Mask}>
                 </View>
             </TouchableOpacity>
-            <View style={styles.AddRoundedBox}>
-                
+            <View style={styles.helperWindow}>
+                <Text style={styles.helperHeader}>离线帮助</Text>
+                <View style={styles.helperItem}>
+                    <View style={styles.helperIconView}>
+                        <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
+                    </View>
+                    <View style={styles.helperTextView}>
+                        <Text style={styles.helperTextHeader}>1.设备是否已接通电源</Text>
+                        <Text style={styles.helperTextContent}>检查设备指示灯，若未亮，请确认电源是否正常</Text>
+                    </View>
+                </View>
+                <View style={styles.helperItem}>
+                    <View style={styles.helperIconView}>
+                        <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
+                    </View>
+                    <View style={styles.helperTextView}>
+                        <Text style={styles.helperTextHeader}>2.SIM卡信号是否良好</Text>
+                        <Text style={styles.helperTextContent}>若设备安装在信号不佳的区域(如地下室)，请将设备移动到信号好的地方安装</Text>
+                    </View>
+                </View>
+                <View style={styles.helperItem}>
+                    <View style={styles.helperIconView}>
+                        <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
+                    </View>
+                    <View style={styles.helperTextView}>
+                        <Text style={styles.helperTextHeader}>3.查看设备指示灯状态</Text>
+                        <Text style={styles.helperTextContent}>快闪:将设备断开电源后重新通电，等待设备重启完成后再查看设备{'\n'}
+                            慢闪:将设备断开电源，拨插或更换SIM卡后通电</Text>
+                    </View>
+                </View>
             </View>
         </View>
     );
@@ -29,7 +57,7 @@ const screenWidth = Dimensions.get('window').width;
 
 
 const styles = StyleSheet.create({
-    AddRoundedBox: {
+    helperWindow: {
         width: screenWidth,
         height: screenWidth,
         position: 'absolute',
@@ -39,8 +67,9 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        padding: 20,
+        padding: 10,
         zIndex: 1001,
+        alignItems: 'center', // 添加这行
     },
     Mask: {
         position: 'absolute',
@@ -58,48 +87,46 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    img: {
-        width: 100,
-        height: 100,
-        marginBottom: 30,
+    helperHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000000',
+        marginBottom: 5,
+        marginTop: 10,
     },
-    popWindow: {
+    helperItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        margin: 5,
+    },
+    helperIconView: {
+        width: 60,
+        height: 60,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 30,
-    },
-    buttonView: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        padding: 10,
-    },
-    headerText: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#2d2d2d',
-        marginBottom: 30,
-    },
-    contentText: {
-        fontSize: 16,
-        color: '#2d2d2d',
-        width: screenWidth * 0.8,
-        textAlign: 'center',
-    },
-    buttonText: {
-        fontSize: 16,
-        color: '#2d2d2d',
-        textAlign: 'center',
-        textVerticalAlign: 'center',
-        height: 50,
-        width: 150,
-        borderRadius: 20,
-        backgroundColor: '#f5f5f5',
+        borderRadius: 500,
+        backgroundColor: '#d9ffea',
         margin: 10,
-        padding: 10,
-    }
+        marginRight: 20,
+    },
+    helperIcon: {
+        width: 35,
+        height: 35,
+    },
+    helperTextView: {
+        width: screenWidth * 0.72,
+    },
+    helperTextHeader: {
+        color: '#000000',
+        fontSize: 16,
+        fontWeight: '600',
+        marginBottom: 5,
+    },
+    helperTextContent: {
+
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopWindow);
