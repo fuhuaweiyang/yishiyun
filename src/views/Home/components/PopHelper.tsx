@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Pressable } from 'react-native';
 import { connect } from 'react-redux';
 import { reversalHelper } from "../../../action/index";
 
@@ -12,6 +12,9 @@ const PopWindow = ({ reversalHelper }) => {
             </TouchableOpacity>
             <View style={styles.helperWindow}>
                 <Text style={styles.helperHeader}>离线帮助</Text>
+                <Pressable onPress={reversalHelper}>
+                    <Image source={require('./../../../assets/icons/close.png')} style={styles.closeIcon}></Image>
+                </Pressable>
                 <View style={styles.helperItem}>
                     <View style={styles.helperIconView}>
                         <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
@@ -93,6 +96,14 @@ const styles = StyleSheet.create({
         color: '#000000',
         marginBottom: 5,
         marginTop: 10,
+    },
+    closeIcon: {
+        width: 20,
+        height: 20,
+        position: 'absolute',
+        bottom: 10,
+        left: screenWidth * 0.5 - 50,
+        zIndex: 1002,
     },
     helperItem: {
         display: 'flex',

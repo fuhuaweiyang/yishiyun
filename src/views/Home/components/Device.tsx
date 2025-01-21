@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import { connect } from 'react-redux';
+import { connect } from'react-redux';
 import { reversalIsShowMore, reversal, reversalIfOffLine, reversalHelper } from "../../../action/index";
 import Video from "react-native-video";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import MoreFunc from './MoreFunc';
 
 const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, reversalHelper }) => {
   const { width, height } = Dimensions.get('window');
