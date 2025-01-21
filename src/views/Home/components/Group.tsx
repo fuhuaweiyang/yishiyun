@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { reversal } from "../../../action/index";
+
 const CenteredImage = ({ reversal }) => {
   const { width, height } = Dimensions.get('window');
-
   return (
     <View style={[styles.container, { width, height }]}>
       <View style={styles.AddRoundedBox}>
@@ -83,3 +83,5 @@ const styles = StyleSheet.create({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CenteredImage);
+
+
