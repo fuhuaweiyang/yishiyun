@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, TouchableOpacity, Alert, Text, StyleSheet } from 'react-native'
+import { Image, TouchableOpacity, Alert, Text, StyleSheet, Model } from 'react-native'
 import Home from '../Home/Index'
 import Massage from '../Massage/Index'
 import My from '../My/Index'
@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   tabNavigator: {
-    height: 100
+    height: 100,
+    zIndex: 999,
   }
 })
 export default Index

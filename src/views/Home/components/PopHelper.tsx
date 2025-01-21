@@ -1,11 +1,18 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Pressable, Modal} from 'react-native';
 import { connect } from 'react-redux';
 import { reversalHelper } from "../../../action/index";
 
-const PopWindow = ({ reversalHelper }) => {
+const PopWindow = ({ ifShowHelper,reversalHelper }) => {
     return (
-        <View style={styles.fullScreen}>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={ifShowHelper}
+            onRequestClose={() => {
+                reversalHelper();
+            }}
+            style={styles.fullScreen}>
             <TouchableOpacity onPress={reversalHelper} style={styles.fullScreen}>
                 <View style={styles.Mask}>
                 </View>
@@ -44,12 +51,12 @@ const PopWindow = ({ reversalHelper }) => {
                     </View>
                 </View>
             </View>
-        </View>
+        </Modal>
     );
 };
 
 const mapStateToProps = (state) => ({
-    ifShowpop: state.ifShow.ifShowpop,
+    ifShowpop: state.ifShow.ifShowHelper,
 });
 
 const mapDispatchToProps = {
