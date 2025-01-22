@@ -2,16 +2,22 @@ import React from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { reversal } from "../../../action/index";
+import { useNavigation } from '@react-navigation/native'
 
 const CenteredImage = ({ reversal }) => {
   const { width, height } = Dimensions.get('window');
+  const navigation = useNavigation()
+
+  const goToAddGroup = () => {
+    navigation.replace('AddGroup')
+  };
   return (
     <View style={[styles.container, { width, height }]}>
       <View style={styles.AddRoundedBox}>
-        <TouchableOpacity onPress={reversal}>
+        <TouchableOpacity onPress={goToAddGroup}>
           <Image source={require('./../../../assets/icons/add_2png.png')} style={styles.iconAdd} />
         </TouchableOpacity>
-        <Text style={styles.addText}>添加摄像机</Text>
+        <Text style={styles.addText}>添加-分组</Text>
       </View>
     </View>
   );
