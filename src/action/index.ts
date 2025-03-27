@@ -9,3 +9,7 @@ export const reversalIsShowMore = ()=>({
 export const reversalIfOffLine = ()=>({
     type: 'REVERSALIfOFFLINE',
 })
+
+export const reversalHelper = ()=>({
+    type: 'IFSHOWHELPER',
+})

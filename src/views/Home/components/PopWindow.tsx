@@ -1,17 +1,24 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Alert, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { reversal } from "../../../action/index";
 
-const PopWindow = ({ ifshowpop, reversal }) => {
+const PopWindow = ({ ifShowpop, reversal }) => {
     return (
-        <View style={styles.fullScreen}>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={ifShowpop}
+            onRequestClose={() => {
+                reversal();
+            }}
+            style={styles.fullScreen}>
             <TouchableOpacity onPress={reversal} style={styles.fullScreen}>
                 <View style={styles.Mask}>
                 </View>
             </TouchableOpacity>
             <View style={styles.AddRoundedBox}>
-                <Text style={styles.headerText}>请开启定位权限</Text>
+                <Text style={styles.headerText}>请开启定位权限!</Text>
                 <View style={styles.popWindow}>
                     <Image source={require('./../../../assets/icons/icon_add_search_device.gif')} style={styles.img}></Image>
                     <Text style={styles.contentText}>需要开启定位权限，用于获取附近的Wi-Fi信息完成设备联网</Text>
@@ -21,16 +28,16 @@ const PopWindow = ({ ifshowpop, reversal }) => {
                         <Text style={styles.buttonText}>取消</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={reversal}>
-                        <Text style={[styles.buttonText, { backgroundColor: '#4c9fff',color: '#fff' }]}>确定</Text>
+                        <Text style={[styles.buttonText, { backgroundColor: '#4c9fff', color: '#fff' }]}>确定</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </Modal>
     );
 };
 
 const mapStateToProps = (state) => ({
-    ifshowpop: state.ifShow.ifshowpop,
+    ifShowpop: state.ifShow.ifShowpop,
 });
 
 const mapDispatchToProps = {
@@ -69,6 +76,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: '100%',
         height: '100%',
+        zIndex: 1000,
     },
     img: {
         width: 100,

@@ -40,7 +40,7 @@ const MoreFunc = ({ reversalIsShowMore ,reversalIfOffLine,ifOffline}) => {
 };
 
 const mapStateToProps = (state) => ({
-    ifshowpop: state.ifShow.ifshowpop,
+    ifShowpop: state.ifShow.ifShowpop,
     ifOffline: state.ifShow.ifOffline,
 
 });

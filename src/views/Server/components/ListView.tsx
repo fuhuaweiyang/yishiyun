@@ -15,20 +15,19 @@ const FastNav = (props: any) => {
   const tabs = [
     {
       title: '我的商城',
-      icon: require('../../../assets/publicImg/sign.png'),
+      icon: require('../../../assets/icons/shop.png'),
     },
     {
       title: '我的订单',
-      icon: require('../../../assets/publicImg/luck.png'),
+      icon: require('../../../assets/icons/account.png'),
     },
     {
       title: '我的分享',
-      icon: require('../../../assets/publicImg/bug.png'),
+      icon: require('../../../assets/icons/share.png'),
     },
     {
       title: '截图录像',
-      icon: require('../../../assets/publicImg/weal.png'),
-      routeName: 'Weal',
+      icon: require('../../../assets/icons/Screenshot.png'),
     },
   ];
 
