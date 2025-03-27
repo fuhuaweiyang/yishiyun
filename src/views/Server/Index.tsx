@@ -3,50 +3,76 @@ import { ScrollView, Text, View, Image, Pressable, StyleSheet, Dimensions } from
 import ListView from "./components/ListView";
 import { useNavigation } from '@react-navigation/native';
 import Compare from "./components/Compare";
-
-
+import { useTheme } from "../../hooks/useTheme";
 const Index = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const handleClose = () => {
-    navigation.replace('Index')
-  }
+    navigation.replace('Index');
+  };
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       <Pressable onPress={handleClose} style={styles.close}>
-        <Image style={styles.closeImg}
+        <Image
+          style={styles.closeImg}
           source={require('../../assets/login/close-light.png')}
         />
       </Pressable>
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
-        showsVerticalScrollIndicator={false}>
-        <Text style={styles.headerText}>商城</Text>
-        <Image source={require('../../assets/icons/guide_img_none.webp')} style={styles.headImg}></Image>
+        showsVerticalScrollIndicator={false}
+      >
+        {/* 标题文本应用主题色 */}
+        <Text style={[styles.headerText, { color: theme.TextColor }]}>商城</Text>
+        
+        <Image
+          source={require('../../assets/icons/guide_img_none.webp')}
+          style={styles.headImg}
+        />
+
         <View style={styles.serverItem}>
-          <Text style={styles.serverItemHeaderText}>服务优势</Text>
-          <ListView></ListView>
-          <Compare></Compare>
+          {/* 子标题文本应用主题色 */}
+          <Text style={[styles.serverItemHeaderText, { color: theme.TextColor }]}>
+            服务优势
+          </Text>
+          <ListView />
+          <Compare />
         </View>
-        <View style={styles.serverItem}>
-          <Text style={styles.serverItemHeaderText}>空间无限</Text>
-          <Text style={styles.serverItemContentText}>云存储空间无上限，录多少存多少，无需再担心储存卡。空间不足，保留录像备份轻松无忧。</Text>
-          <Image source={require('../../assets/itemImg/add_guide_img_basestation.webp')} style={styles.itemImg}></Image>
-        </View>
-        <View style={styles.serverItem}>
-          <Text style={styles.serverItemHeaderText}>倍数播放</Text>
-          <Text style={styles.serverItemContentText}>录像视频倍速播放，支持快速浏览一天的录像回放，确保不错过任何细节，查看录像回放更加高效。</Text>
-          <Image source={require('../../assets/itemImg/add_guide_img_bound.webp')} style={styles.itemImg}></Image>
-        </View>
-        <View style={styles.serverItem}>
-          <Text style={styles.serverItemHeaderText}>离线观看</Text>
-          <Text style={styles.serverItemContentText}>设备无需依赖网络连接，您可在任何时候、任何地点自由观看录像，轻松回放监控画面，方便又快捷。</Text>
-          <Image source={require('../../assets/itemImg/add_guide_img_doorbell.webp')} style={styles.itemImg}></Image>
-        </View>
-        <View style={styles.serverItem}>
-          <Text style={styles.serverItemHeaderText}>故障备份</Text>
-          <Text style={styles.serverItemContentText}>自动备份录像，即使设备故障和存储卡损坏，您的重要信息依然安全保存，保障您的数据完整性和安全性，让您再也无需再担心数据丢失。</Text>
-          <Image source={require('../../assets/itemImg/guide_img_scan.webp')} style={styles.itemImg}></Image>
-        </View>
+
+        {/* 所有文本组件都需要添加颜色 */}
+        {[
+          {
+            title: '空间无限',
+            content: '云存储空间无上限，录多少存多少，无需再担心储存卡。空间不足，保留录像备份轻松无忧。',
+            img: require('../../assets/itemImg/add_guide_img_basestation.webp'),
+          },
+          {
+            title: '倍数播放',
+            content: '录像视频倍速播放，支持快速浏览一天的录像回放，确保不错过任何细节，查看录像回放更加高效。',
+            img: require('../../assets/itemImg/add_guide_img_bound.webp'),
+          },
+          {
+            title: '离线观看',
+            content: '设备无需依赖网络连接，您可在任何时候、任何地点自由观看录像，轻松回放监控画面，方便又快捷。',
+            img: require('../../assets/itemImg/add_guide_img_doorbell.webp'),
+          },
+          {
+            title: '故障备份',
+            content: '自动备份录像，即使设备故障和存储卡损坏，您的重要信息依然安全保存，保障您的数据完整性和安全性，让您再也无需再担心数据丢失。',
+            img: require('../../assets/itemImg/guide_img_scan.webp'),
+          },
+        ].map((item, index) => (
+          <View key={index} style={styles.serverItem}>
+            <Text style={[styles.serverItemHeaderText, { color: theme.TextColor }]}>
+              {item.title}
+            </Text>
+            <Text style={[styles.serverItemContentText, { color: theme.TextColor }]}>
+              {item.content}
+            </Text>
+            <Image source={item.img} style={styles.itemImg} />
+          </View>
+        ))}
       </ScrollView>
     </View>
   );

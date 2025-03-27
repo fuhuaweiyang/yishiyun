@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react'
 import Calendar from './Calendar'
-import useTheme from '../../../hooks/useTheme'
+import {useTheme} from '../../../hooks/useTheme'
 import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import SystemMessage from './SystemMessage'
 import WarnMessage from './WarnMessage'
@@ -8,7 +8,7 @@ import Popover from 'react-native-popover-view';
 
 
 const ListView = () => {
-  const { backgroundColor, color } = useTheme()
+  const { theme } = useTheme()
   const [activeTab, setActiveTab] = useState('system')
 
   const handleTabSwitch = (tab) => {
@@ -16,7 +16,7 @@ const ListView = () => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: backgroundColor }}>
+    <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
       <View style={styles.tabBar}>
         <TouchableOpacity onPress={() => handleTabSwitch('system')} style={styles.tabItem}>
           <Text style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>

@@ -2,6 +2,11 @@ import Detail from './components/Detail'
 import { ScrollView, Text, View, Image, Pressable, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import ButtonDetail from './components/ButtonDetail';
+import React from 'react';
+import { useTheme } from '../../hooks/useTheme'
+
+
+// const { theme } = useTheme();
 
 const PersonDetail = () => {
     const navigation = useNavigation()
@@ -23,7 +28,7 @@ const PersonDetail = () => {
                 showsVerticalScrollIndicator={false}>
                 <Text style={styles.headerText}>设置</Text>
                 <View style={[styles.settingView]}>
-                    <ButtonDetail title="硬编码"></ButtonDetail>
+                    <ButtonDetail title="夜间模式" ></ButtonDetail>
                     <Detail title="预览模式" value="实时" />
                     <ButtonDetail title="消息通知横幅" detail="关闭后APP内将不再推送警报消息横幅通知"></ButtonDetail>
                     <ButtonDetail title="屏幕亮度开关" detail="开启后进入设备预览回放界面时屏幕亮度自动调高"></ButtonDetail>

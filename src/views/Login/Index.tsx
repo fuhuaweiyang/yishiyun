@@ -3,7 +3,7 @@ import { Image, Pressable,StyleSheet } from 'react-native'
 import PageView from '../../components/PageView'
 import ContainerView from '../../components/ContainerView'
 import ContainerText from '../../components/ContainerText'
-import useTheme from '../../hooks/useTheme'
+import {useTheme} from '../../hooks/useTheme'
 import { useNavigation } from '@react-navigation/native'
 import ListView from './components/ListView'
 import { login } from '../../action/authAction';

@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import { connect } from'react-redux';
+import { connect } from 'react-redux';
 import { reversalIsShowMore, reversal, reversalIfOffLine, reversalHelper } from "../../../action/index";
 import Video from "react-native-video";
 import notifee from "@notifee/react-native";
+import {useTheme} from '../../../hooks/useTheme'
 
-const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, reversalHelper }) => {
+interface CenteredImageProps {
+  isShowMore: boolean;
+  reversalIsShowMore: () => void;
+  reversal: () => void;
+  ifOffline: boolean;
+  reversalHelper?: () => void; // 可选属性（根据实际需要调整）
+}
+
+const CenteredImage: React.FC<CenteredImageProps> = ({
+  isShowMore,
+  reversalIsShowMore,
+  reversal,
+  ifOffline,
+  reversalHelper
+}) => {
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const { theme } = useTheme()
   async function onDisplayNotification() {
 
     // 请求权限（iOS 需要）
@@ -35,7 +50,7 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
   }
 
   return (
-    <View style={[styles.container, { width, height }]}>
+    <View style={[styles.container, { backgroundColor:theme.backgroundColor, width, height }]}>
       <View style={styles.roundedBox}>
         <View style={styles.containerVideo}>
           <View style={styles.stateIconView}>

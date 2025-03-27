@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { View, ViewProps } from 'react-native'
-import useTheme from '../hooks/useTheme'
+import {useTheme} from '../hooks/useTheme'
 import { ViewStyle } from 'react-native'
 interface Props extends ViewProps {
   style?: ViewStyle | Array<ViewStyle>
@@ -9,9 +9,13 @@ interface Props extends ViewProps {
 }
 const ContainerView = (props: Props) => {
   const { children, style = {}, itemKey } = props
-  const { backgroundColor } = useTheme()
+  const { theme } = useTheme()
   return (
-    <View {...props} key={itemKey} style={[{ backgroundColor }, style]}>
+    <View {...props} key={itemKey} 
+    style={[
+      {backgroundColor: theme.backgroundColor }, // 这里需要指定样式属性
+      style
+    ]}>
       {children}
     </View>
   )

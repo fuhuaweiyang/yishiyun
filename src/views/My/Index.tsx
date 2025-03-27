@@ -5,7 +5,7 @@ import UserInfo from './components/UserInfo'
 import FastNav from './components/FastNav'
 import CreatorCenter from './components/CreatorCenter'
 import More from './components/More'
-import useTheme from '../../hooks/useTheme'
+import {useTheme} from '../../hooks/useTheme'
 
 function My(): React.JSX.Element {
 

@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react'
-import useTheme from '../../../hooks/useTheme'
+import {useTheme} from '../../../hooks/useTheme'
 import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import Device from './Device'
 import Group from './Group'
@@ -20,7 +20,7 @@ const mapDispatchToProps = {
   reversal
 };
 const ListView = ({ ifShowpop, reversal, isShowMore, ifShowHelper }) => {
-  const { backgroundColor, color } = useTheme()
+  const { theme } = useTheme()
   const [activeTab, setActiveTab] = useState('system')
 
   const handleTabSwitch = (tab) => {
@@ -32,7 +32,7 @@ const ListView = ({ ifShowpop, reversal, isShowMore, ifShowHelper }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: backgroundColor }}>
+    <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
       <View style={styles.tabBar}>
         <TouchableOpacity onPress={() => handleTabSwitch('system')} style={styles.tabItem}>
           <Text style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>

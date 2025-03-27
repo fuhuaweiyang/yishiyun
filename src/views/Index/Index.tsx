@@ -4,7 +4,7 @@ import Home from '../Home/Index'
 import Massage from '../Massage/Index'
 import My from '../My/Index'
 import Server from '../Server/Index'
-import useTheme from '../../hooks/useTheme'
+import {useTheme} from '../../hooks/useTheme'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
 
@@ -17,16 +17,16 @@ const Index = () => {
     Alert.alert('错误', '请输入用户名和密码');
     // 在这里处理点击事件逻辑
   };
-  const { backgroundColor } = useTheme()
+  const { theme } = useTheme()
   return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#1e80ff"
       inactiveColor="#bfbfbf"
       activeIndicatorStyle={{
-        backgroundColor,
+        backgroundColor:theme.backgroundColor,
       }}
-      barStyle={{ backgroundColor }}
+      barStyle={{ backgroundColor:theme.backgroundColor, }}
       style={styles.tabNavigator}>
       <Tab.Screen
         name="Home"

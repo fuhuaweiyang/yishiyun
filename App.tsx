@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import useTheme from './src/hooks/useTheme'
+import {useTheme} from './src/hooks/useTheme'
 import PageView from './src/components/PageView'
 import Index from './src/views/Index/Index'
 import Login from './src/views/Login/Index'
@@ -20,15 +20,15 @@ function App(): React.JSX.Element {
   useEffect(() => {
     SplashScreen.hide()
   }, [])
-  const { backgroundColor } = useTheme()
+  const { theme } = useTheme()
   return (
     <Provider store={store}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Index"
             screenOptions={{
-              navigationBarColor: backgroundColor,
+              navigationBarColor: theme.backgroundColor,
               headerShown: false,
             }}>
             <Stack.Screen name="Index" component={Index} />
