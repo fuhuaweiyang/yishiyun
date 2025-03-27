@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { connect } from'react-redux';
 import { reversalIsShowMore, reversal, reversalIfOffLine, reversalHelper } from "../../../action/index";
-import { connect } from'react-redux';
-import { reversalIsShowMore, reversal, reversalIfOffLine, reversalHelper } from "../../../action/index";
 import Video from "react-native-video";
-// import notifee from "@notifee/react-native";
+import notifee from "@notifee/react-native";
 
-const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, reversalHelper }) => {
 const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, reversalHelper }) => {
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
@@ -15,26 +12,26 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
   async function onDisplayNotification() {
 
     // 请求权限（iOS 需要）
-    // await notifee.requestPermission();
+    await notifee.requestPermission();
 
-    // // 创建一个频道（Android 需要）
-    // const channelId = await notifee.createChannel({
-    //   id: "default",
-    //   name: "默认频道",
-    // });
+    // 创建一个频道（Android 需要）
+    const channelId = await notifee.createChannel({
+      id: "default",
+      name: "默认频道",
+    });
 
     // 显示一个通知
-    // await notifee.displayNotification({
-    //   title: "通知标题",
-    //   body: "通知的主体内容",
-    //   android: {
-    //     channelId,
-    //     // 如果你想要通知被按下时打开应用，需要 pressAction
-    //     pressAction: {
-    //       id: "default",
-    //     },
-    //   },
-    // });
+    await notifee.displayNotification({
+      title: "通知标题",
+      body: "通知的主体内容",
+      android: {
+        channelId,
+        // 如果你想要通知被按下时打开应用，需要 pressAction
+        pressAction: {
+          id: "default",
+        },
+      },
+    });
   }
 
   return (
@@ -50,14 +47,7 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
               <ImageBackground source={require("./../../../assets/1.png")} style={[styles.thumbnail]}>
                 <View style={ifOffline && styles.thumbnailMask}></View>
                 <View></View>
-                <View></View>
               </ImageBackground>
-              <TouchableOpacity
-                onPress={() => {
-                  if (!ifOffline) {
-                    setIsPlaying(true);
-                  }
-                }}
               <TouchableOpacity
                 onPress={() => {
                   if (!ifOffline) {
@@ -71,23 +61,9 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
                     ifOffline
                       ? require("./../../../assets/icons/offline.webp") // 离线图标
                       : require("./../../../assets/icons/adsail_player_center_play.png") // 播放图标
-                  source={
-                    ifOffline
-                      ? require("./../../../assets/icons/offline.webp") // 离线图标
-                      : require("./../../../assets/icons/adsail_player_center_play.png") // 播放图标
                   }
                 />
               </TouchableOpacity>
-              {ifOffline && (
-                <>
-                  <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
-                  <TouchableOpacity onPress={reversalHelper}>
-                    <View style={styles.maskButton}>
-                      <Text style={[styles.maskText, { fontSize: 14 }]}>查看帮助</Text>
-                    </View>
-                  </TouchableOpacity>
-                </>
-              )}
               {ifOffline && (
                 <>
                   <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
@@ -110,7 +86,6 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
           )}
 
 
-
         </View>
         <View style={styles.bottonView}>
           <Text style={styles.text}>我的摄像机</Text>
@@ -118,7 +93,6 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
             <TouchableOpacity>
               <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon}></Image>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onDisplayNotification}>
             <TouchableOpacity onPress={onDisplayNotification}>
               <Image source={require('./../../../assets/icons/bell.png')} style={styles.bottomIcon}></Image>
             </TouchableOpacity>
@@ -138,7 +112,7 @@ const CenteredImage = ({ isShowMore, reversalIsShowMore, reversal, ifOffline, re
   );
 };
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state) => ({
   isShowMore: state.ifShow.isShowMore,
   ifOffline: state.ifShow.ifOffline,
 });
@@ -146,8 +120,6 @@ const mapStateToProps = (state:any) => ({
 const mapDispatchToProps = {
   reversalIsShowMore,
   reversal,
-  reversalIfOffLine,
-  reversalHelper
   reversalIfOffLine,
   reversalHelper
 };
