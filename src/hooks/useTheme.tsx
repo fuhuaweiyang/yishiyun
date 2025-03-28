@@ -5,6 +5,7 @@ type Theme = {
   backgroundColor: string;
   color: string;
   TextColor: string;
+  itemBackgroundColor: string;
 };
 
 type ThemeContextType = {
@@ -13,18 +14,18 @@ type ThemeContextType = {
   toggleTheme: () => Promise<void>;
 };
 
-const lightTheme = {
+const darkTheme = {
   backgroundColor: '#fff',
   itemBackgroundColor: '#000',
   color: '#000',
   TextColor: '#000',
 };
 
-const darkTheme = {
+const lightTheme = {
   backgroundColor: '#1a1a1a',
-  itemBackgroundColor: '#1a1a1a',
-  color: '#fff',
-  TextColor: '#fff',
+  itemBackgroundColor: '#252525',
+  color: '#505859',
+  TextColor: '#505859',
 };
 
 const ThemeContext = createContext<ThemeContextType>({
@@ -51,6 +52,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   // 切换主题并保存
   const toggleTheme = async () => {
+    console.log('toggleTheme');
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     try {

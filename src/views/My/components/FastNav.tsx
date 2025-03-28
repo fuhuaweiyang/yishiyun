@@ -3,8 +3,11 @@ import { Image, Alert, Pressable,StyleSheet  } from 'react-native'
 import ContainerView from '../../../components/ContainerView'
 import ContainerText from '../../../components/ContainerText'
 import { useNavigation } from '@react-navigation/native'
+import { useTheme } from '../../../hooks/useTheme'
 const FastNav = (props: any) => {
   const navigation = useNavigation()
+
+  const { theme } = useTheme()
   const handleJump = ({ routeName }: any) => {
     if (routeName) {
       navigation.navigate(routeName as never)
@@ -36,7 +39,7 @@ const FastNav = (props: any) => {
       style={[
         styles.container,
         {
-          backgroundColor: '#fff',
+          backgroundColor: theme.itemBackgroundColor,
         },
       ]}>
       {tabs.map((item, index) => {

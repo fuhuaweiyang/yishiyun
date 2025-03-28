@@ -8,17 +8,17 @@ import More from './components/More'
 import {useTheme} from '../../hooks/useTheme'
 
 function My(): React.JSX.Element {
-
+  const {theme} = useTheme()
   return (
     <PageView
       style={{
-        backgroundColor:'#f3f4f6',
+        backgroundColor:theme.backgroundColor,
         flex: 1,
       }}>
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}>
-        <UserInfo />
+        <UserInfo/>
         <FastNav/>
         <CreatorCenter />
         <More/>

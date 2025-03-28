@@ -1,8 +1,10 @@
 import React from 'react';
 import { Image, Alert, Pressable, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../../../hooks/useTheme';
 
 const FastNav = (props: any) => {
+  const { theme } = useTheme();
   const navigation = useNavigation();
   const handleJump = ({ routeName }: any) => {
     if (routeName) {
@@ -36,7 +38,7 @@ const FastNav = (props: any) => {
       style={[
         styles.container,
         {
-          backgroundColor: '#fff',
+          backgroundColor: theme.itemBackgroundColor,
         },
       ]}>
       {tabs.map((item, index) => {
@@ -48,7 +50,7 @@ const FastNav = (props: any) => {
             <View style={styles.iconContainer}>
               <Image style={styles.icon} source={item.icon} />
             </View>
-            <Text style={styles.text}>{item.title}</Text>
+            <Text style={[styles.text,{color:theme.TextColor}]}>{item.title}</Text>
           </Pressable>
         );
       })}

@@ -1,8 +1,11 @@
 import React from 'react'
 import { View, Image, Pressable, Alert, Text, StyleSheet, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useTheme } from '../../../hooks/useTheme'
+
 const CreatorCenter = (props: any) => {
     const navigation = useNavigation()
+    const { theme } = useTheme()
     const handleJump = () => {
         Alert.alert('功能开发ing...')
         // if (routeName) {
@@ -16,7 +19,7 @@ const CreatorCenter = (props: any) => {
             style={[
                 styles.container,
                 {
-                    backgroundColor: '#fff',
+                    backgroundColor: theme.itemBackgroundColor,
                 },
             ]}>
             <View style={styles.navs}>
@@ -26,10 +29,10 @@ const CreatorCenter = (props: any) => {
                     <View>
                         <View style={styles.textItem}>
                             <View style={styles.textView}>
-                                <Text style={styles.textType}>{props.title}</Text>
+                                <Text style={[styles.textType,{color: theme.TextColor}]}>{props.title}</Text>
                                 {props.detail && <Text style={styles.textDetail}>{props.detail}</Text>}
                             </View>
-                            <Text style={styles.textDetail}>{props.value}</Text>
+                            <Text style={[styles.textDetail,{color: theme.TextColor}]}>{props.value}</Text>
                         </View>
                     </View>
                     <Image style={styles.icon} source={require('../../../assets/icons/anythink_browser_right_icon.png')} />

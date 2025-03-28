@@ -10,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux';
 import { login } from "../../../action/authAction";
+import { useTheme } from '../../../hooks/useTheme';
 
 const UserInfo = ({ username }) => {
   const navigation = useNavigation()
@@ -19,8 +20,10 @@ const UserInfo = ({ username }) => {
 
   const screenWidth = Dimensions.get('window').width;
 
+  const { theme } = useTheme()
+
   return (
-    <View style={styles.container}>
+    <View style={styles.containerback}>
       {/* 图片背景 */}
       <Image
         source={require('../../../assets/publicImg/background.png')}
@@ -32,8 +35,8 @@ const UserInfo = ({ username }) => {
           <Text style={styles.text}>上次访问：2天前</Text>
         </View>
         <Text style={styles.text}>Hello, {username}</Text>
-        <Pressable onPress={handleToPersonHome} style={styles.button}>
-          <Text style={styles.buttonText}>个人资料</Text>
+        <Pressable onPress={handleToPersonHome} style={[styles.button,{backgroundColor:theme.itemBackgroundColor}]}>
+          <Text style={[styles.buttonText,{color:theme.TextColor}]}>个人资料</Text>
         </Pressable>
       </View>
     </View>
@@ -59,7 +62,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.3)', // 半透明背景（可选）
   },
   text: {
-    color: 'white',
     fontSize: 18,
     marginBottom: 10,
   },

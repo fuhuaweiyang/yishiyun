@@ -1,14 +1,16 @@
 import React from "react";
 import { Image, Alert, Pressable, View, Text, StyleSheet, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useTheme } from "../../../hooks/useTheme";
 
 const Compare = () => {
+    const { theme } = useTheme();
     return (
         <View>
             <View style={styles.headerView}>
-                <Text style={styles.headerText}>云存储</Text>
+                <Text style={[styles.headerText,{color:theme.TextColor}]}>云存储</Text>
                 <Image source={require('../../../assets/icons/VS.png')} style={styles.img}></Image>
-                <Text style={styles.headerText}>卡存储</Text>
+                <Text style={[styles.headerText,{color:theme.TextColor}]}>卡存储</Text>
             </View>
             <View style={styles.CardAndCloudView}>
                 <View>
@@ -50,7 +52,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     headerText: {
-        fontSize: 20,
+        fontSize: 20
     },
     CardAndCloudView: {
         display: 'flex',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Image, Pressable, Alert, Text, Dimensions, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useTheme } from '../../../hooks/useTheme'
 
 type ButtonDetailProps = {
     title: string;
@@ -11,24 +12,26 @@ type ButtonDetailProps = {
 const ButtonDetail = (props: ButtonDetailProps) => {
     const navigation = useNavigation()
     const [on, setOn] = useState(false)
+    const { theme } = useTheme()
 
     return (
         <View
             style={[
                 styles.container,
                 {
-                    backgroundColor: '#fff',
+                    backgroundColor: theme.itemBackgroundColor,
                 },
             ]}>
             <View style={styles.navs}>
                 <View style={styles.textView}>
-                    <Text style={styles.textType}>{props.title}</Text>
-                    <Text style={styles.textDetail}>{props.detail}</Text>
+                    <Text style={[styles.textType,{color: theme.TextColor}]}>{props.title}</Text>
+                    <Text style={[styles.textDetail,{color: theme.TextColor}]}>{props.detail}</Text>
                 </View>
                 <Pressable
                     onPress={() => {
                         setOn(!on);       // 切换开关状态
-                        props.changeFun(); // 调用父组件传递的 toggleTheme 方法
+                        props.changeFun();
+                        console.log('changeFun') // 调用父组件传递的 toggleTheme 方法
                       }}>
                     <View style={on ? styles.roundViewOn : styles.roundViewOff}>
                         {!on && <View style={styles.round}></View>}

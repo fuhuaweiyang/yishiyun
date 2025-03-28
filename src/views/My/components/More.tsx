@@ -3,8 +3,10 @@ import { View, Image, Pressable, Alert, StyleSheet } from 'react-native'
 import ContainerView from '../../../components/ContainerView'
 import ContainerText from '../../../components/ContainerText'
 import { useNavigation } from '@react-navigation/native'
+import {useTheme} from '../../../hooks/useTheme'
 const CreatorCenter = (props: any) => {
   const navigation = useNavigation()
+  const {theme} = useTheme()
   const handleJump = ({ routeName }: any) => {
     if (routeName) {
       navigation.navigate(routeName as never)
@@ -51,7 +53,7 @@ const CreatorCenter = (props: any) => {
       style={[
         styles.container,
         {
-          backgroundColor:  '#fff',
+          backgroundColor:  theme.itemBackgroundColor,
         },
       ]}>
       <View style={styles.navs}>
@@ -61,7 +63,7 @@ const CreatorCenter = (props: any) => {
               style={styles.item}
               onPress={() => handleJump(item)}
               key={index}>
-              <ContainerText style={styles.text}>{item.title}</ContainerText>
+              <ContainerText style={[styles.text,{color: theme.TextColor}]}>{item.title}</ContainerText>
               <Image style={styles.icon} source={require('../../../assets/icons/anythink_browser_right_icon.png')} />
             </Pressable>
           )

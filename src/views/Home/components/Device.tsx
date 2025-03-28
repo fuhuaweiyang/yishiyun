@@ -102,8 +102,8 @@ const CenteredImage: React.FC<CenteredImageProps> = ({
 
 
         </View>
-        <View style={styles.bottonView}>
-          <Text style={styles.text}>我的摄像机</Text>
+        <View style={[styles.bottonView,{backgroundColor:theme.itemBackgroundColor}]}>
+          <Text style={[styles.text,{color:theme.TextColor}]}>我的摄像机</Text>
           <View style={styles.bottonIconView}>
             <TouchableOpacity>
               <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon}></Image>
@@ -117,11 +117,11 @@ const CenteredImage: React.FC<CenteredImageProps> = ({
           </View>
         </View>
       </View>
-      <View style={styles.AddRoundedBox}>
+      <View style={[styles.AddRoundedBox,{backgroundColor:theme.itemBackgroundColor}]}>
         <TouchableOpacity onPress={reversal}>
           <Image source={require('./../../../assets/icons/add_2png.png')} style={styles.iconAdd} />
         </TouchableOpacity>
-        <Text style={styles.addText}>添加摄像机</Text>
+        <Text style={[styles.addText,{color:theme.TextColor}]}>添加摄像机</Text>
       </View>
     </View>
   );
