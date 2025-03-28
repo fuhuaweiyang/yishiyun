@@ -14,14 +14,14 @@ type ThemeContextType = {
   toggleTheme: () => Promise<void>;
 };
 
-const darkTheme = {
-  backgroundColor: '#fff',
-  itemBackgroundColor: '#000',
+const lightTheme = {
+  backgroundColor: '#f3f3f3',
+  itemBackgroundColor: '#fff',
   color: '#000',
   TextColor: '#000',
 };
 
-const lightTheme = {
+const darkTheme = {
   backgroundColor: '#1a1a1a',
   itemBackgroundColor: '#252525',
   color: '#505859',

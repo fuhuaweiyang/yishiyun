@@ -32,7 +32,7 @@ const ListView = ({ ifShowpop, reversal, isShowMore, ifShowHelper }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.backgroundColor }}>
+    <View style={{ flex: 1, backgroundColor: theme.itemBackgroundColor }}>
       <View style={styles.tabBar}>
         <TouchableOpacity onPress={() => handleTabSwitch('system')} style={styles.tabItem}>
           <Text style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>

@@ -24,9 +24,9 @@ const Index = () => {
       activeColor="#1e80ff"
       inactiveColor="#bfbfbf"
       activeIndicatorStyle={{
-        backgroundColor:theme.backgroundColor,
+        backgroundColor:theme.itemBackgroundColor,
       }}
-      barStyle={{ backgroundColor:theme.backgroundColor, }}
+      barStyle={{ backgroundColor:theme.itemBackgroundColor, }}
       style={styles.tabNavigator}>
       <Tab.Screen
         name="Home"
