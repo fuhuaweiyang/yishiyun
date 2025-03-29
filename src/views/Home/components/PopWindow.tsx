@@ -2,8 +2,17 @@ import React from "react";
 import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Alert, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { reversal } from "../../../action/index";
+import { useNavigation } from '@react-navigation/native';
 
 const PopWindow = ({ ifShowpop, reversal }) => {
+    const navigation = useNavigation()
+    const handleJump = ({ routeName }: any) => {
+        if (routeName) {
+            navigation.navigate(routeName as never)
+        } else {
+            Alert.alert('功能开发ing...')
+        }
+    }
     return (
         <Modal
             animationType="slide"
@@ -24,8 +33,11 @@ const PopWindow = ({ ifShowpop, reversal }) => {
                     <Text style={styles.contentText}>需要开启定位权限，用于获取附近的Wi-Fi信息完成设备联网</Text>
                 </View>
                 <View style={styles.buttonView}>
-                    <TouchableOpacity onPress={reversal}>
-                        <Text style={styles.buttonText}>取消</Text>
+                    <TouchableOpacity onPress={()=>{
+                        reversal()
+                        handleJump({ routeName: 'AddDevice' })
+                    }}>
+                        <Text style={styles.buttonText}>继续添加</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={reversal}>
                         <Text style={[styles.buttonText, { backgroundColor: '#4c9fff', color: '#fff' }]}>确定</Text>
@@ -43,6 +55,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     reversal
 };
+
 
 const screenWidth = Dimensions.get('window').width;
 

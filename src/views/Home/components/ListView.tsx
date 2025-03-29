@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react'
-import {useTheme} from '../../../hooks/useTheme'
+import { useTheme } from '../../../hooks/useTheme'
 import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import Device from './Device'
 import Group from './Group'
@@ -7,7 +7,7 @@ import MoreFunc from './MoreFunc'
 import PopWindow from './PopWindow'
 import PopHelper from './PopHelper'
 import { connect } from 'react-redux'
-import {  reversalIsShowMore, reversal, reversalHelper } from "../../../action/index";
+import { reversalIsShowMore, reversal, reversalHelper } from "../../../action/index";
 
 
 const mapStateToProps = (state) => ({
@@ -19,7 +19,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   reversal
 };
+
 const ListView = ({ ifShowpop, reversal, isShowMore, ifShowHelper }) => {
+  
   const { theme } = useTheme()
   const [activeTab, setActiveTab] = useState('system')
 
@@ -55,8 +57,8 @@ const ListView = ({ ifShowpop, reversal, isShowMore, ifShowHelper }) => {
         </TouchableOpacity>
       </View>
       {ifShowpop === true && <PopWindow></PopWindow>}
-      {isShowMore && <MoreFunc/>}
-      {ifShowHelper && <PopHelper/>}
+      {isShowMore && <MoreFunc />}
+      {ifShowHelper && <PopHelper />}
     </View >
   )
 }

@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import { SafeAreaView } from 'react-native'
 import store from './src/store'
 import { ThemeProvider, useTheme } from './src/hooks/useTheme'
+import AddDevice from './src/views/AddDevice/Index'
 
 const Stack = createNativeStackNavigator()
 
@@ -30,6 +31,7 @@ function MainNavigator() {
           <Stack.Screen name="PersonDetail" component={PersonDetail} />
           <Stack.Screen name="Setting" component={Setting} />
           <Stack.Screen name="Test" component={Test} />
+          <Stack.Screen name="AddDevice" component={AddDevice} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

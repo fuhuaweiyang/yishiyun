@@ -11,8 +11,7 @@ const Home = () => {
   }
   return (
     <PageView style={styles.container}>
-      <ContainerView style={styles.item}>
-      </ContainerView>
+
       <ListView />
     </PageView>
   )
