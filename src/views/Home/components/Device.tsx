@@ -1,88 +1,71 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import { connect } from 'react-redux';
-import { reversalIsShowMore, reversal, reversalIfOffLine, reversalHelper } from "../../../action/index";
+import { useDispatch, useSelector } from 'react-redux';
 import Video from "react-native-video";
 import notifee from "@notifee/react-native";
-import {useTheme} from '../../../hooks/useTheme'
+import { useTheme } from '../../../hooks/useTheme';
+import type { RootState } from '../../../store/store';
+import { togglePopup, toggleShowMore, toggleOffline, toggleHelper } from '../../../store/uiSlice';
 
-interface CenteredImageProps {
-  isShowMore: boolean;
-  reversalIsShowMore: () => void;
-  reversal: () => void;
-  ifOffline: boolean;
-  reversalHelper?: () => void; // 可选属性（根据实际需要调整）
-}
-
-const CenteredImage: React.FC<CenteredImageProps> = ({
-  isShowMore,
-  reversalIsShowMore,
-  reversal,
-  ifOffline,
-  reversalHelper
-}) => {
+const CenteredImage = React.memo(() => {
+  const dispatch = useDispatch();
+  const { theme } = useTheme();
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
-  const { theme } = useTheme()
+  
+  // 从Redux获取状态
+  const { isShowMore, ifOffline } = useSelector((state: RootState) => ({
+    isShowMore: state.ui.isShowMore,
+    ifOffline: state.ui.ifOffline
+  }));
+
+  // 通知功能保持不变
   async function onDisplayNotification() {
-
-    // 请求权限（iOS 需要）
     await notifee.requestPermission();
-
-    // 创建一个频道（Android 需要）
     const channelId = await notifee.createChannel({
       id: "default",
       name: "默认频道",
     });
-
-    // 显示一个通知
     await notifee.displayNotification({
       title: "通知标题",
       body: "通知的主体内容",
-      android: {
-        channelId,
-        // 如果你想要通知被按下时打开应用，需要 pressAction
-        pressAction: {
-          id: "default",
-        },
-      },
+      android: { channelId, pressAction: { id: "default" } },
     });
   }
 
   return (
-    <View style={[styles.container, { backgroundColor:theme.backgroundColor, width, height }]}>
+    <View style={[styles.container, { backgroundColor: theme.backgroundColor, width, height }]}>
       <View style={styles.roundedBox}>
         <View style={styles.containerVideo}>
           <View style={styles.stateIconView}>
-            <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon}></Image>
-            {/* <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon}></Image> */}
+            <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon} />
           </View>
+
           {!isPlaying ? (
             <View style={styles.thumbnailContainer}>
-              <ImageBackground source={require("./../../../assets/1.png")} style={[styles.thumbnail]}>
+              <ImageBackground 
+                source={require("./../../../assets/1.png")} 
+                style={[styles.thumbnail]}>
                 <View style={ifOffline && styles.thumbnailMask}></View>
-                <View></View>
               </ImageBackground>
+              
               <TouchableOpacity
-                onPress={() => {
-                  if (!ifOffline) {
-                    setIsPlaying(true);
-                  }
-                }}
+                onPress={() => !ifOffline && setIsPlaying(true)}
               >
                 <Image
                   style={styles.playImg}
                   source={
                     ifOffline
-                      ? require("./../../../assets/icons/offline.webp") // 离线图标
-                      : require("./../../../assets/icons/adsail_player_center_play.png") // 播放图标
+                      ? require("./../../../assets/icons/offline.webp")
+                      : require("./../../../assets/icons/adsail_player_center_play.png")
                   }
                 />
               </TouchableOpacity>
+
               {ifOffline && (
                 <>
                   <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
-                  <TouchableOpacity onPress={reversalHelper}>
+                  <TouchableOpacity onPress={() => dispatch(toggleHelper())}>
                     <View style={styles.maskButton}>
                       <Text style={[styles.maskText, { fontSize: 14 }]}>查看帮助</Text>
                     </View>
@@ -96,48 +79,36 @@ const CenteredImage: React.FC<CenteredImageProps> = ({
               style={styles.video}
               resizeMode="cover"
               controls={true}
-              onEnd={() => setIsPlaying(false)} // 视频结束后返回初始状态
+              onEnd={() => setIsPlaying(false)}
             />
           )}
-
-
         </View>
-        <View style={[styles.bottonView,{backgroundColor:theme.itemBackgroundColor}]}>
-          <Text style={[styles.text,{color:theme.TextColor}]}>我的摄像机</Text>
+
+        <View style={[styles.bottonView, { backgroundColor: theme.itemBackgroundColor }]}>
+          <Text style={[styles.text, { color: theme.TextColor }]}>我的摄像机</Text>
           <View style={styles.bottonIconView}>
             <TouchableOpacity>
-              <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon}></Image>
+              <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onDisplayNotification}>
-              <Image source={require('./../../../assets/icons/bell.png')} style={styles.bottomIcon}></Image>
+              <Image source={require('./../../../assets/icons/bell.png')} style={styles.bottomIcon} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={reversalIsShowMore}>
-              <Image source={require('./../../../assets/icons/commet-light.png')} style={styles.bottomIcon}></Image>
+            <TouchableOpacity onPress={() => dispatch(toggleShowMore())}>
+              <Image source={require('./../../../assets/icons/commet-light.png')} style={styles.bottomIcon} />
             </TouchableOpacity>
           </View>
         </View>
       </View>
-      <View style={[styles.AddRoundedBox,{backgroundColor:theme.itemBackgroundColor}]}>
-        <TouchableOpacity onPress={reversal}>
+
+      <View style={[styles.AddRoundedBox, { backgroundColor: theme.itemBackgroundColor }]}>
+        <TouchableOpacity onPress={() => dispatch(togglePopup())}>
           <Image source={require('./../../../assets/icons/add_2png.png')} style={styles.iconAdd} />
         </TouchableOpacity>
-        <Text style={[styles.addText,{color:theme.TextColor}]}>添加摄像机</Text>
+        <Text style={[styles.addText, { color: theme.TextColor }]}>添加摄像机</Text>
       </View>
     </View>
   );
-};
-
-const mapStateToProps = (state) => ({
-  isShowMore: state.ifShow.isShowMore,
-  ifOffline: state.ifShow.ifOffline,
 });
-
-const mapDispatchToProps = {
-  reversalIsShowMore,
-  reversal,
-  reversalIfOffLine,
-  reversalHelper
-};
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -298,4 +269,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CenteredImage);
+export default CenteredImage;

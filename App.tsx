@@ -11,7 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
 import { SafeAreaView } from 'react-native'
-import store from './src/store'
+import store from './src/store/store'
 import { ThemeProvider, useTheme } from './src/hooks/useTheme'
 import AddDevice from './src/views/AddDevice/Index'
 

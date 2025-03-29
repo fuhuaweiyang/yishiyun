@@ -1,67 +1,74 @@
-import React, { useState, memo } from 'react'
-import { useTheme } from '../../../hooks/useTheme'
-import { View, Text, Image, Alert, TouchableOpacity, StyleSheet } from 'react-native'
-import Device from './Device'
-import Group from './Group'
-import MoreFunc from './MoreFunc'
-import PopWindow from './PopWindow'
-import PopHelper from './PopHelper'
-import { connect } from 'react-redux'
-import { reversalIsShowMore, reversal, reversalHelper } from "../../../action/index";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; // 添加hooks导入
+import { useTheme } from '../../../hooks/useTheme';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import Device from './Device';
+import Group from './Group';
+import MoreFunc from './MoreFunc';
+import PopWindow from './PopWindow';
+import PopHelper from './PopHelper';
+import { togglePopup, toggleShowMore, toggleHelper } from '../../../store/uiSlice';
+import type { RootState } from '../../../store/store';
 
+const ListView = () => {// 使用memo优化组件
+  const { theme } = useTheme();
+  const [activeTab, setActiveTab] = useState('system');
+  const dispatch = useDispatch();
 
-const mapStateToProps = (state) => ({
-  ifShowpop: state.ifShow.ifShowpop,
-  isShowMore: state.ifShow.isShowMore,
-  ifShowHelper: state.ifShow.ifShowHelper,
-});
+  // 使用类型化的useSelector
+  const { ifShowpop, isShowMore, ifShowHelper } = useSelector((state: RootState) => ({
+    ifShowpop: state.ui.ifShowpop,
+    isShowMore: state.ui.isShowMore,
+    ifShowHelper: state.ui.ifShowHelper
+  }));
 
-const mapDispatchToProps = {
-  reversal
-};
-
-const ListView = ({ ifShowpop, reversal, isShowMore, ifShowHelper }) => {
-  
-  const { theme } = useTheme()
-  const [activeTab, setActiveTab] = useState('system')
-
-  const handleTabSwitch = (tab) => {
-    setActiveTab(tab)
-  }
+  const handleTabSwitch = (tab: string) => {
+    setActiveTab(tab);
+  };
 
   const changePop = () => {
-    reversal()
-  }
+    dispatch(togglePopup());
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.itemBackgroundColor }}>
       <View style={styles.tabBar}>
-        <TouchableOpacity onPress={() => handleTabSwitch('system')} style={styles.tabItem}>
+        <TouchableOpacity
+          onPress={() => handleTabSwitch('system')}
+          style={styles.tabItem}
+          activeOpacity={0.7}>
           <Text style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>
             设备
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleTabSwitch('warn')} style={styles.tabItem}>
+        <TouchableOpacity
+          onPress={() => handleTabSwitch('warn')}
+          style={styles.tabItem}
+          activeOpacity={0.7}>
           <Text style={[styles.tabLabel, activeTab === 'warn' && styles.activeTab]}>
             分组
           </Text>
         </TouchableOpacity>
       </View>
+
       {activeTab === 'system' && <Device />}
       {activeTab === 'warn' && <Group />}
 
       <View style={styles.headerRight}>
-        {/* <Image source={require('./../../../assets/icons/more.png')} style={styles.img} /> */}
-        <TouchableOpacity onPress={() => changePop()} >
-          <Image source={require('./../../../assets/icons/add.png')} style={styles.img} />
+        <TouchableOpacity onPress={changePop} activeOpacity={0.7}>
+          <Image 
+            source={require('./../../../assets/icons/add.png')} 
+            style={[styles.img]} 
+          />
         </TouchableOpacity>
       </View>
-      {ifShowpop === true && <PopWindow></PopWindow>}
+
+      {ifShowpop && <PopWindow />}
       {isShowMore && <MoreFunc />}
       {ifShowHelper && <PopHelper />}
-    </View >
-  )
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   img: {
@@ -131,4 +138,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListView)
+export default ListView
