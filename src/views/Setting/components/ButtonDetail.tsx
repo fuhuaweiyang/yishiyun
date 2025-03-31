@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Image, Pressable, Alert, Text, Dimensions, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../hooks/useTheme'
+import ContainerText from '../../../components/ContainerText'
 
 type ButtonDetailProps = {
     title: string;
@@ -24,8 +25,8 @@ const ButtonDetail = (props: ButtonDetailProps) => {
             ]}>
             <View style={styles.navs}>
                 <View style={styles.textView}>
-                    <Text style={[styles.textType,{color: theme.TextColor}]}>{props.title}</Text>
-                    <Text style={[styles.textDetail,{color: theme.TextColor}]}>{props.detail}</Text>
+                    <ContainerText style={[styles.textType,{color: theme.TextColor}]}>{props.title}</ContainerText>
+                    <ContainerText style={[styles.textDetail,{color: theme.TextColor}]}>{props.detail}</ContainerText>
                 </View>
                 <Pressable
                     onPress={() => {

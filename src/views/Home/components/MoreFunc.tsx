@@ -6,6 +6,7 @@ import SpliteLine from "../../../components/SpliteLine";
 import PopDetail from "./PopDetail";
 import { toggleShowMore, toggleOffline } from "../../../store/uiSlice";
 import type { RootState } from '../../../store/store';
+import ContainerText from "../../../components/ContainerText";
 
 const MoreFunc = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const MoreFunc = () => {
           colors={['#ebf9ff', '#ffffff']}
           style={styles.linearGradient}
         >
-          <Text style={styles.headerText}>摄像机</Text>
+          <ContainerText style={styles.headerText}>摄像机</ContainerText>
           <View style={styles.HeaderListView}>
             <TouchableOpacity onPress={() => dispatch(toggleOffline())}>
               <Image 

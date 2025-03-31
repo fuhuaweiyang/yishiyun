@@ -2,7 +2,7 @@ import Detail from './components/Detail'
 import { ScrollView, Text, View, Image, Pressable, TouchableOpacity, StyleSheet, Dimensions, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-
+import ContainerText from '../../components/ContainerText'
 
 const AddGroup = () => {
     const navigation = useNavigation()
@@ -22,19 +22,19 @@ const AddGroup = () => {
             <ScrollView
                 contentContainerStyle={styles.scrollViewContent}
                 showsVerticalScrollIndicator={false}>
-                <Text style={styles.headerText}>添加-分组</Text>
+                <ContainerText style={styles.headerText}>添加-分组</ContainerText>
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[styles.titleText, { marginTop: 0 }]}>分组名称</Text>
+                    <ContainerText style={[styles.titleText, { marginTop: 0 }]}>分组名称</ContainerText>
                     <Detail title="我的分组" />
-                    <Text style={styles.titleText}>已选设备与通道</Text>
+                    <ContainerText style={styles.titleText}>已选设备与通道</ContainerText>
                     <Detail title="卧室的摄像机" />
                     <Detail title="我书房的摄像机" />
-                    <Text style={styles.titleText}>不在此分组中的设备与通道</Text>
+                    <ContainerText style={styles.titleText}>不在此分组中的设备与通道</ContainerText>
                     <Detail title="账号" />
                     <Detail title="邮箱" />
                 </View>
                 <TouchableOpacity onPress={loginOut}>
-                    <Text style={[styles.buttonText]}>退出登录</Text>
+                    <ContainerText style={[styles.buttonText]}>退出登录</ContainerText>
                 </TouchableOpacity>
             </ScrollView>
         </View>

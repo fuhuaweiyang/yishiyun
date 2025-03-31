@@ -4,9 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../store/store';
 import { fetchDevices, addDevice } from '../../store/deviceSlice';
-
+import ContainerText from '../../components/ContainerText';
+import {useTheme} from '../../hooks/useTheme'
 
 const DeviceListScreen = () => {
+  const { theme } = useTheme()
   const navigation = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
   const { deviceList, devicesSeacrch, loading, error } = useSelector((state: RootState) => state.devices);
@@ -44,40 +46,40 @@ const DeviceListScreen = () => {
   if (error) {
     return (
       <View >
-        <Text >{error}</Text>
+        <ContainerText >{error}</ContainerText>
       </View>
     );
   }
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer, { backgroundColor: theme.backgroundColor }]}>
       {/* 顶部按钮 */}
-      <View style={styles.header}>
+      <View style={[styles.header, { backgroundColor: theme.backgroundColor }]}>
         <TouchableOpacity
           style={styles.headerButton}
           onPress={() => handleJump({ routeName: 'Home' })}
         >
-          <Text style={styles.headerButtonText}>取消</Text>
+          <ContainerText style={styles.headerButtonText}>取消</ContainerText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.headerButton}
           onPress={() => handleJump({ routeName: 'Help' })}
         >
-          <Text style={styles.headerButtonText}>帮助</Text>
+          <ContainerText style={styles.headerButtonText}>帮助</ContainerText>
         </TouchableOpacity>
       </View>
 
       <View style={styles.contentWrapper}>
-        <Text style={styles.title}>发现附近设备</Text>
-        <Text style={styles.titleLittle}>发现设备</Text>
+        <ContainerText style={styles.title}>发现附近设备</ContainerText>
+        <ContainerText style={styles.titleLittle}>发现设备</ContainerText>
         <ScrollView style={styles.container}>
           {devicesSeacrch.map((device, index) => (
-            <View key={index} style={styles.deviceItem}>
+            <View key={index} style={[styles.deviceItem,{backgroundColor: theme.itemBackgroundColor}]}>
               <View style={styles.deviceInfo}>
-                <Text style={styles.deviceType}>{device.type}</Text>
-                <Text style={styles.deviceId}>
+                <ContainerText style={styles.deviceType}>{device.type}</ContainerText>
+                <ContainerText style={styles.deviceId}>
                   ID: {formatId(device.id, device.hidden)}
-                </Text>
+                </ContainerText>
               </View>
               <TouchableOpacity
                 style={styles.addButton}
@@ -87,27 +89,27 @@ const DeviceListScreen = () => {
                   console.log(deviceList)
                 }}
               >
-                <Text style={styles.addButtonText}>添加</Text>
+                <ContainerText style={styles.addButtonText}>添加</ContainerText>
               </TouchableOpacity>
             </View>
           ))}
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>更多添加方式</Text>
+            <ContainerText style={styles.sectionTitle}>更多添加方式</ContainerText>
 
             <TouchableOpacity
               style={styles.addMethod}
               onPress={() => handleJump({ routeName: 'QRScanner' })}
             >
-              <Text style={styles.methodText}>扫一扫添加</Text>
-              <Text style={styles.subText}>手机扫设备机身码添加</Text>
+              <ContainerText style={styles.methodText}>扫一扫添加</ContainerText>
+              <ContainerText style={styles.subText}>手机扫设备机身码添加</ContainerText>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.addMethod}
               onPress={() => handleJump({ routeName: 'CameraScan' })}
             >
-              <Text style={styles.methodText}>摄像机扫码添加</Text>
+              <ContainerText style={styles.methodText}>摄像机扫码添加</ContainerText>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -120,7 +122,6 @@ const DeviceListScreen = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#f0f2f5',
     padding: 16,
   },
   centerContainer: {
@@ -144,7 +145,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   headerButtonText: {
-    color: '#1890ff',
     fontSize: 16,
   },
   title: {
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
-    backgroundColor: 'white',
     borderRadius: 12,
     overflow: 'hidden', // 确保圆角生效
     shadowColor: '#000',
@@ -180,7 +179,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     marginBottom: 12,
-    backgroundColor: '#f8f9fa',
   },
   deviceInfo: {
     flex: 1,

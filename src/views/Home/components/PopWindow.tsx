@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import type { RootState } from '../../../store'; // 确保路径正确
 import { togglePopup } from '../../../store/uiSlice'; // 导入新的action
+import ContainerText from '../../../components/ContainerText';
+import { useTheme } from '../../../hooks/useTheme';
 
 const PopWindow = React.memo(() => {
+    const { theme } = useTheme();
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
@@ -34,21 +37,21 @@ const PopWindow = React.memo(() => {
                 <View style={styles.Mask}>
                 </View>
             </TouchableOpacity>
-            <View style={styles.AddRoundedBox}>
-                <Text style={styles.headerText}>请开启定位权限!</Text>
+            <View style={[styles.AddRoundedBox,{backgroundColor:theme.itemBackgroundColor}]}>
+                <ContainerText style={styles.headerText}>请开启定位权限!</ContainerText>
                 <View style={styles.popWindow}>
                     <Image source={require('./../../../assets/icons/icon_add_search_device.gif')} style={styles.img}></Image>
-                    <Text style={styles.contentText}>需要开启定位权限，用于获取附近的Wi-Fi信息完成设备联网</Text>
+                    <ContainerText style={styles.contentText}>需要开启定位权限，用于获取附近的Wi-Fi信息完成设备联网</ContainerText>
                 </View>
                 <View style={styles.buttonView}>
                     <TouchableOpacity onPress={() => {
                         handleClose();
                         handleJump('AddDevice');
                     }}>
-                        <Text style={styles.buttonText}>继续添加</Text>
+                        <ContainerText style={styles.buttonText}>继续添加</ContainerText>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={handleClose}>
-                        <Text style={[styles.buttonText, { backgroundColor: '#4c9fff', color: '#fff' }]}>确定</Text>
+                        <ContainerText style={[styles.buttonText, { backgroundColor: '#4c9fff', color: '#fff' }]}>确定</ContainerText>
                     </TouchableOpacity>
                 </View>
             </View>

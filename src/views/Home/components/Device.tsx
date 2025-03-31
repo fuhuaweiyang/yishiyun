@@ -6,6 +6,7 @@ import notifee from "@notifee/react-native";
 import { useTheme } from '../../../hooks/useTheme';
 import type { RootState } from '../../../store/store';
 import { togglePopup, toggleShowMore, toggleHelper } from '../../../store/uiSlice';
+import ContainerText from '../../../components/ContainerText';
 
 
 const CenteredImage = React.memo(() => {
@@ -66,10 +67,10 @@ const CenteredImage = React.memo(() => {
 
                       {ifOffline && (
                         <>
-                          <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
+                          <ContainerText style={[styles.maskText, { fontSize: 16 }]}>设备离线了</ContainerText>
                           <TouchableOpacity onPress={() => dispatch(toggleHelper())}>
                             <View style={styles.maskButton}>
-                              <Text style={[styles.maskText, { fontSize: 14 }]}>查看帮助</Text>
+                              <ContainerText style={[styles.maskText, { fontSize: 14 }]}>查看帮助</ContainerText>
                             </View>
                           </TouchableOpacity>
                         </>
@@ -87,7 +88,7 @@ const CenteredImage = React.memo(() => {
                 </View>
 
                 <View style={[styles.bottonView, { backgroundColor: theme.itemBackgroundColor }]}>
-                  <Text style={[styles.text, { color: theme.TextColor }]}>{devive.type}</Text>
+                  <ContainerText style={[styles.text]}>{devive.type}</ContainerText>
                   <View style={styles.bottonIconView}>
                     <TouchableOpacity>
                       <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon} />
@@ -109,7 +110,7 @@ const CenteredImage = React.memo(() => {
           <TouchableOpacity onPress={() => dispatch(togglePopup())}>
             <Image source={require('./../../../assets/icons/add_2png.png')} style={styles.iconAdd} />
           </TouchableOpacity>
-          <Text style={[styles.addText, { color: theme.TextColor }]}>添加摄像机</Text>
+          <ContainerText style={[styles.addText, { color: theme.TextColor }]}>添加摄像机</ContainerText>
         </View>
       </ScrollView>
     </View>
@@ -168,7 +169,6 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   text: {
-    color: '#505859',
     fontSize: 20,
     height: 50,
     borderBottomLeftRadius: 20, // 左下角无圆角

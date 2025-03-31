@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Image, Pressable, Alert, Text, StyleSheet, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../hooks/useTheme'
+import ContainerText from '../../../components/ContainerText'
 
 const CreatorCenter = (props: any) => {
     const navigation = useNavigation()
@@ -29,10 +30,10 @@ const CreatorCenter = (props: any) => {
                     <View>
                         <View style={styles.textItem}>
                             <View style={styles.textView}>
-                                <Text style={[styles.textType,{color: theme.TextColor}]}>{props.title}</Text>
-                                {props.detail && <Text style={styles.textDetail}>{props.detail}</Text>}
+                                <ContainerText style={[styles.textType,{color: theme.TextColor}]}>{props.title}</ContainerText>
+                                {props.detail && <ContainerText style={styles.textDetail}>{props.detail}</ContainerText>}
                             </View>
-                            <Text style={[styles.textDetail,{color: theme.TextColor}]}>{props.value}</Text>
+                            <ContainerText style={[styles.textDetail,{color: theme.TextColor}]}>{props.value}</ContainerText>
                         </View>
                     </View>
                     <Image style={styles.icon} source={require('../../../assets/icons/anythink_browser_right_icon.png')} />

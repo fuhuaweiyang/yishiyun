@@ -22,7 +22,6 @@ const PersonDetail = () => {
             <ScrollView
                 contentContainerStyle={styles.scrollViewContent}
                 showsVerticalScrollIndicator={false}>
-                <Text style={styles.headerText}>个人资料</Text>
                 <View style={{ marginTop: 20 }}>
                     <Text style={[styles.titleText, { marginTop: 0 }]}>基本资料</Text>
                     <Detail title="账号" />

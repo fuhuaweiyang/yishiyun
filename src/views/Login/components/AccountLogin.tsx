@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../store/authSlice';  // 从 slice 导入
 import type { RootState } from '../../../store/store';
+import ContainerText from '../../../components/ContainerText';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -72,12 +73,12 @@ const LoginPage = () => {
       />
 
       <View style={styles.linksContainer}>
-        <Text style={styles.linkText} onPress={handleRegister}>
+        <ContainerText style={styles.linkText} onPress={handleRegister}>
           注册
-        </Text>
-        <Text style={styles.linkText} onPress={handleForgotPassword}>
+        </ContainerText>
+        <ContainerText style={styles.linkText} onPress={handleForgotPassword}>
           忘记密码?
-        </Text>
+        </ContainerText>
       </View>
 
       <TouchableOpacity 
@@ -85,9 +86,9 @@ const LoginPage = () => {
         onPress={handleLogin}
         disabled={isLoading}
       >
-        <Text style={styles.buttonText}>
+        <ContainerText style={styles.buttonText}>
           {isLoading ? '登录中...' : '登录'}
-        </Text>
+        </ContainerText>
       </TouchableOpacity>
     </View>
   );

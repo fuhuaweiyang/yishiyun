@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, Image, Text, StyleSheet, ImageBackground, Dimensions, ImageSourcePropType } from 'react-native';
+import ContainerText from './ContainerText';
 
 var dimensions = { width: 0, height: 0 };
-const AutoImg = ({ imageSource }) => {
+interface AutoImgProps {
+  imageSource: ImageSourcePropType;
+}
+const AutoImg: React.FC<AutoImgProps>  = ({ imageSource }) => {
     // const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
@@ -19,7 +23,7 @@ const AutoImg = ({ imageSource }) => {
             source={imageSource}
             style={styles.itemImg}
           >
-            <Text>图片宽高：{dimensions.width} x {dimensions.height}</Text>
+            <ContainerText>图片宽高：{dimensions.width} x {dimensions.height}</ContainerText>
           </ImageBackground>
         </View>
       );

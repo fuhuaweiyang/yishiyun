@@ -9,6 +9,7 @@ import PopWindow from './PopWindow';
 import PopHelper from './PopHelper';
 import { togglePopup, toggleShowMore, toggleHelper } from '../../../store/uiSlice';
 import type { RootState } from '../../../store/store';
+import ContainerText from '../../../components/ContainerText';
 
 const ListView = () => {
   const { theme } = useTheme();
@@ -36,17 +37,17 @@ const ListView = () => {
           onPress={() => handleTabSwitch('system')}
           style={styles.tabItem}
           activeOpacity={0.7}>
-          <Text style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>
+          <ContainerText style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>
             设备
-          </Text>
+          </ContainerText>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handleTabSwitch('warn')}
           style={styles.tabItem}
           activeOpacity={0.7}>
-          <Text style={[styles.tabLabel, activeTab === 'warn' && styles.activeTab]}>
+          <ContainerText style={[styles.tabLabel, activeTab === 'warn' && styles.activeTab]}>
             分组
-          </Text>
+          </ContainerText>
         </TouchableOpacity>
       </View>
 

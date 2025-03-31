@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../hooks/useTheme';
 import { togglePopup } from '../../../store/uiSlice'; 
+import ContainerText from '../../../components/ContainerText';
 
 const CenteredImage = React.memo(() => {
   const { width, height } = Dimensions.get('window');
@@ -20,7 +21,7 @@ const CenteredImage = React.memo(() => {
             style={styles.iconAdd} 
           />
         </TouchableOpacity>
-        <Text style={[styles.addText, { color: theme.TextColor }]}>添加-分组</Text>
+        <ContainerText style={[styles.addText, { color: theme.TextColor }]}>添加-分组</ContainerText>
       </View>
     </View>
   );

@@ -10,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux';
 import { useTheme } from '../../../hooks/useTheme';
+import ContainerText from '../../../components/ContainerText';
 
 const UserInfo = ({ username }) => {
   const navigation = useNavigation()
@@ -31,11 +32,11 @@ const UserInfo = ({ username }) => {
       {/* 文字叠加层 */}
       <View style={styles.overlay}>
         <View>
-          <Text style={styles.text}>上次访问：2天前</Text>
+          <ContainerText style={styles.text}>上次访问：2天前</ContainerText>
         </View>
-        <Text style={styles.text}>Hello, {username}</Text>
+        <ContainerText style={styles.text}>Hello, {username}</ContainerText>
         <Pressable onPress={handleToPersonHome} style={[styles.button,{backgroundColor:theme.itemBackgroundColor}]}>
-          <Text style={[styles.buttonText,{color:theme.TextColor}]}>个人资料</Text>
+          <ContainerText style={[styles.buttonText,{color:theme.TextColor}]}>个人资料</ContainerText>
         </Pressable>
       </View>
     </View>

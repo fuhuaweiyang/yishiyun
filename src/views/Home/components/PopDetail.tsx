@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, Pressable, Alert, Text,  StyleSheet} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import ContainerText from '../../../components/ContainerText'
 const CreatorCenter = (props: any) => {
     const navigation = useNavigation()
     const handleJump = () => {
@@ -25,7 +26,7 @@ const CreatorCenter = (props: any) => {
                     onPress={() => handleJump()}>
                     <View style={styles.textItem}>
                         <Image style={styles.textIcon} source={require('../../../assets/icons/warm-spots-selected.png')} />
-                        <Text style={styles.textType}>{props.title}</Text>
+                        <ContainerText style={styles.textType}>{props.title}</ContainerText>
                     </View>
                     <Image style={styles.icon} source={require('../../../assets/icons/anythink_browser_right_icon.png')} />
                 </Pressable>

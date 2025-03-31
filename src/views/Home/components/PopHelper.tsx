@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Pr
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleHelper } from "../../../store/uiSlice";
 import type {RootState} from '../../../store/store'
+import ContainerText from "../../../components/ContainerText";
 
 const PopWindow = () => {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const PopWindow = () => {
                 </View>
             </TouchableOpacity>
             <View style={styles.helperWindow}>
-                <Text style={styles.helperHeader}>离线帮助</Text>
+                <ContainerText style={styles.helperHeader}>离线帮助</ContainerText>
                 <Pressable onPress={()=>dispatch(toggleHelper())}>
                     <Image source={require('./../../../assets/icons/close.png')} style={styles.closeIcon}></Image>
                 </Pressable>
@@ -30,8 +31,8 @@ const PopWindow = () => {
                         <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
                     </View>
                     <View style={styles.helperTextView}>
-                        <Text style={styles.helperTextHeader}>1.设备是否已接通电源</Text>
-                        <Text style={styles.helperTextContent}>检查设备指示灯，若未亮，请确认电源是否正常</Text>
+                        <ContainerText style={styles.helperTextHeader}>1.设备是否已接通电源</ContainerText>
+                        <ContainerText style={styles.helperTextContent}>检查设备指示灯，若未亮，请确认电源是否正常</ContainerText>
                     </View>
                 </View>
                 <View style={styles.helperItem}>
@@ -39,8 +40,8 @@ const PopWindow = () => {
                         <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
                     </View>
                     <View style={styles.helperTextView}>
-                        <Text style={styles.helperTextHeader}>2.SIM卡信号是否良好</Text>
-                        <Text style={styles.helperTextContent}>若设备安装在信号不佳的区域(如地下室)，请将设备移动到信号好的地方安装</Text>
+                        <ContainerText style={styles.helperTextHeader}>2.SIM卡信号是否良好</ContainerText>
+                        <ContainerText style={styles.helperTextContent}>若设备安装在信号不佳的区域(如地下室)，请将设备移动到信号好的地方安装</ContainerText>
                     </View>
                 </View>
                 <View style={styles.helperItem}>
@@ -48,9 +49,9 @@ const PopWindow = () => {
                         <Image source={require('./../../../assets/icons/battery_empty2.png')} style={styles.helperIcon}></Image>
                     </View>
                     <View style={styles.helperTextView}>
-                        <Text style={styles.helperTextHeader}>3.查看设备指示灯状态</Text>
-                        <Text style={styles.helperTextContent}>快闪:将设备断开电源后重新通电，等待设备重启完成后再查看设备{'\n'}
-                            慢闪:将设备断开电源，拨插或更换SIM卡后通电</Text>
+                        <ContainerText style={styles.helperTextHeader}>3.查看设备指示灯状态</ContainerText>
+                        <ContainerText style={styles.helperTextContent}>快闪:将设备断开电源后重新通电，等待设备重启完成后再查看设备{'\n'}
+                            慢闪:将设备断开电源，拨插或更换SIM卡后通电</ContainerText>
                     </View>
                 </View>
             </View>
