@@ -1,88 +1,140 @@
-import React,{useState} from 'react'
-import { Image, Pressable,StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Image, Pressable, StyleSheet, TextInput } from 'react-native'
 import PageView from '../../components/PageView'
 import ContainerView from '../../components/ContainerView'
 import ContainerText from '../../components/ContainerText'
-import {useTheme} from '../../hooks/useTheme'
 import { useNavigation } from '@react-navigation/native'
 import ListView from './components/ListView'
-import { login } from '../../action/authAction';
-import { connect } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../store/authSlice'
+import type { RootState } from '../../../store/store';
 
 const Login = () => {
   const navigation = useNavigation()
-  const handleLogin = () => {
-    
-    navigation.replace('Index')
+  const dispatch = useDispatch()
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const iflogin = useSelector((state: RootState) => state.auth.iflogin);
+  const error = useSelector((state: RootState) => state.auth.error);
+  const user = useSelector((state: RootState) => state.auth.user);  const [otherLogin, setOtherLogin] = useState(false)
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: ''
+  })
 
+  // 自动跳转逻辑
+  useEffect(() => {
+    if (iflogin) {
+      navigation.replace('Index')
+    }
+  }, [user,login, navigation])
+
+  const handleLogin = () => {
+    if (!credentials.username || !credentials.password) {
+      return
+    }
+    console.log('登录', credentials)
+    dispatch(login(credentials))
   }
+
   const handleClose = () => {
     navigation.goBack()
   }
-  const [otherLogin, setOtherLogin] = useState(false);
+
+  const handleInputChange = (field: keyof typeof credentials, value: string) => {
+    setCredentials(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
   if (!otherLogin) {
     return (
       <PageView style={styles.container}>
-        <Pressable onPress={handleLogin}>
+        <Pressable onPress={handleClose}>
           <Image
             source={require('../../assets/login/close-light.png')}
             style={styles.close}
           />
         </Pressable>
+
         <ContainerView style={styles.userInfo}>
           <ContainerText style={styles.title}>欢迎使用易视云</ContainerText>
           <ContainerText style={styles.label}>登录体验精彩</ContainerText>
-          <ContainerText style={styles.phone}>181****6084</ContainerText>
-          <ContainerText style={styles.hint}>
-            认证服务由中国移动提供
-          </ContainerText>
+
+          <TextInput
+            style={styles.input}
+            placeholder="用户名"
+            value={credentials.username}
+            onChangeText={(text) => handleInputChange('username', text)}
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="密码"
+            value={credentials.password}
+            onChangeText={(text) => handleInputChange('password', text)}
+            secureTextEntry
+          />
+
+          {error && (
+            <ContainerText style={styles.errorText}>{error}</ContainerText>
+          )}
         </ContainerView>
+
         <Pressable
           onPress={handleLogin}
+          disabled={isLoading}
           style={({ pressed }) => [
             styles.loginBtn,
             {
               backgroundColor: pressed ? '#1171ee' : '#3d8afe',
-            },
+              opacity: isLoading ? 0.7 : 1
+            }
           ]}>
-          <ContainerText style={styles.loginText}>一键登录</ContainerText>
+          <ContainerText style={styles.loginText}>
+            {isLoading ? '登录中...' : '登录'}
+          </ContainerText>
         </Pressable>
+
         <Pressable
-          onPress={()=>setOtherLogin(true)}
+          onPress={() => setOtherLogin(true)}
           style={({ pressed }) => [
             styles.loginBtn,
             {
-              backgroundColor: pressed ? '#1171ee' : '#3d8afe',
-            },
+              backgroundColor: pressed ? '#1171ee' : '#3d8afe'
+            }
           ]}>
           <ContainerText style={styles.loginText}>其他方式登录</ContainerText>
         </Pressable>
       </PageView>
     )
-  }else{
-    return (
-      <PageView style={styles.container}>
-        <Pressable onPress={handleClose}>
-          <Image
-            source={ require('../../assets/login/close-light.png')
-            }
-            style={styles.close}
-          />
-        </Pressable>
-        <ContainerView style={styles.userInfo}>
-          <ContainerText style={styles.title}>欢迎使用易视云</ContainerText>
-        </ContainerView>
-        <ListView />
-      </PageView>
-    )
   }
+
+  return (
+    <PageView style={styles.container}>
+      <Pressable onPress={handleClose}>
+        <Image
+          source={require('../../assets/login/close-light.png')}
+          style={styles.close}
+        />
+      </Pressable>
+      <ContainerView style={styles.userInfo}>
+        <ContainerText style={styles.title}>欢迎使用易视云</ContainerText>
+      </ContainerView>
+      <ListView />
+    </PageView>
+  )
 }
+
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    padding: 16,
+  },
   title: {
     marginTop: 20,
-    fontWeight: 600,
+    fontWeight: '600',
     fontSize: 25,
     textAlign: 'center',
     color: '#0e8fff'
@@ -98,27 +150,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 60,
-  },
-  logo: {
-    marginTop: 40,
-    width: 50,
-    height: 50,
-    borderRadius: 3,
+    width: '100%',
   },
   label: {
     marginTop: 20,
-    fontWeight: 600,
+    fontWeight: '600',
     fontSize: 18,
     textAlign: 'center',
+    marginBottom: 30,
   },
-  phone: {
-    marginTop: 20,
-    fontSize: 24,
-    textAlign: 'center',
-  },
-  hint: {
-    marginTop: 20,
-    textAlign: 'center',
+  input: {
+    width: '80%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 8,
+    marginVertical: 10,
   },
   loginBtn: {
     width: '90%',
@@ -128,24 +176,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: '#3d8afe',
   },
   loginText: {
     color: '#ffffff',
     fontSize: 16,
+    fontWeight: '500',
   },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
+    fontSize: 14,
+  }
 })
 
-const mapStateToProps = (state) => ({
-  username: state.auth.user ? state.auth.user.username : null,
-  isLoading: state.auth.isLoading,
-  error: state.auth.error,
-  user: state.auth.user,
-});
-
-// 将登录操作映射为 props
-const mapDispatchToProps = {
-  login,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login

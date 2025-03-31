@@ -14,10 +14,7 @@ const CenteredImage = React.memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
   
   // 从Redux获取状态
-  const { isShowMore, ifOffline } = useSelector((state: RootState) => ({
-    isShowMore: state.ui.isShowMore,
-    ifOffline: state.ui.ifOffline
-  }));
+  const ifOffline  = useSelector((state: RootState) => state.ui.ifOffline);
 
   // 通知功能保持不变
   async function onDisplayNotification() {

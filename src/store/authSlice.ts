@@ -2,13 +2,15 @@ import { createSlice, PayloadAction, ThunkAction } from '@reduxjs/toolkit';
 
 interface AuthState {
   isLoading: boolean;
+  iflogin: boolean;
   user: { username: string };
   error: string | null;
 }
 
 const initialState: AuthState = {
   isLoading: false,
-  user: { username: 'qianmo' },
+  iflogin: false,
+  user: { username: 'shui' },
   error: null,
 };
 
@@ -22,6 +24,7 @@ const authSlice = createSlice({
     },
     loginSuccess: (state, action: PayloadAction<{ username: string }>) => {
       state.isLoading = false;
+      state.iflogin= true,
       state.user = action.payload;
       state.error = null;
     },
@@ -36,10 +39,13 @@ export const { loginRequest, loginSuccess, loginFailure } = authSlice.actions;
 
 export const login = (credentials: { username: string; password: string }): ThunkAction<void, any, unknown, any> => 
   (dispatch) => {
+    console.log('调用dispatchlogin',credentials)
     dispatch(loginRequest());
-    if (credentials.username === 'a' && credentials.password === '1') {
-      dispatch(loginSuccess({ username: 'admin' }));
+    if (credentials.username === 'shuiyue' && credentials.password === '123456') {
+      console.log('调用dispatchlogin成功')
+      dispatch(loginSuccess({ username: credentials.username }));
     } else {
+      console.log('调用dispatchlogin失败')
       dispatch(loginFailure('用户名或密码错误'));
     }
   };

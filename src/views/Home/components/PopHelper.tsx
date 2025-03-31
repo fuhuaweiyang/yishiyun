@@ -1,25 +1,28 @@
 import React from "react";
 import { StyleSheet, View, Text, Button, TouchableOpacity, Image, Dimensions, Pressable, Modal} from 'react-native';
-import { connect } from 'react-redux';
-import { reversalHelper } from "../../../action/index";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleHelper } from "../../../store/uiSlice";
+import type {RootState} from '../../../store/store'
 
-const PopWindow = ({ ifShowHelper,reversalHelper }) => {
+const PopWindow = () => {
+    const dispatch = useDispatch();
+    const ifShowHelper = useSelector((state: RootState) => state.ui.ifShowHelper);
     return (
         <Modal
             animationType="slide"
             transparent={true}
             visible={ifShowHelper}
             onRequestClose={() => {
-                reversalHelper();
+                dispatch(toggleHelper())
             }}
             style={styles.fullScreen}>
-            <TouchableOpacity onPress={reversalHelper} style={styles.fullScreen}>
+            <TouchableOpacity onPress={()=>dispatch(toggleHelper())} style={styles.fullScreen}>
                 <View style={styles.Mask}>
                 </View>
             </TouchableOpacity>
             <View style={styles.helperWindow}>
                 <Text style={styles.helperHeader}>离线帮助</Text>
-                <Pressable onPress={reversalHelper}>
+                <Pressable onPress={()=>dispatch(toggleHelper())}>
                     <Image source={require('./../../../assets/icons/close.png')} style={styles.closeIcon}></Image>
                 </Pressable>
                 <View style={styles.helperItem}>
@@ -53,14 +56,6 @@ const PopWindow = ({ ifShowHelper,reversalHelper }) => {
             </View>
         </Modal>
     );
-};
-
-const mapStateToProps = (state) => ({
-    ifShowpop: state.ifShow.ifShowHelper,
-});
-
-const mapDispatchToProps = {
-    reversalHelper
 };
 
 const screenWidth = Dimensions.get('window').width;
@@ -147,4 +142,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PopWindow);
+export default PopWindow;

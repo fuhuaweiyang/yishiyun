@@ -1,56 +1,56 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Dimensions, Text, Image, Alert } from 'react-native';
-import { connect } from 'react-redux';
-import LinearGradient from 'react-native-linear-gradient'; // 引入 LinearGradient
+import { StyleSheet, View, TouchableOpacity, Dimensions, Text, Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
 import SpliteLine from "../../../components/SpliteLine";
 import PopDetail from "./PopDetail";
-import { reversalIsShowMore, reversalIfOffLine, reversal } from "../../../action/index";
+import { toggleShowMore, toggleOffline } from "../../../store/uiSlice";
+import type { RootState } from '../../../store/store';
 
-const MoreFunc = ({ reversalIsShowMore ,reversalIfOffLine,ifOffline}) => {
-    return (
-        <View style={styles.fullScreen}>
-            <TouchableOpacity onPress={reversalIsShowMore} style={styles.fullScreen}>
-                <View style={styles.Mask}></View>
+const MoreFunc = () => {
+  const dispatch = useDispatch();
+  const { ifOffline } = useSelector((state: RootState) => state.ui);
+  
+  return (
+    <View style={styles.fullScreen}>
+      <TouchableOpacity 
+        onPress={() => dispatch(toggleShowMore())} 
+        style={styles.fullScreen}
+      >
+        <View style={styles.Mask}></View>
+      </TouchableOpacity>
+
+      <View style={styles.popWindow}>
+        <LinearGradient
+          colors={['#ebf9ff', '#ffffff']}
+          style={styles.linearGradient}
+        >
+          <Text style={styles.headerText}>摄像机</Text>
+          <View style={styles.HeaderListView}>
+            <TouchableOpacity onPress={() => dispatch(toggleOffline())}>
+              <Image 
+                style={styles.HeaderListViewImg} 
+                source={require('./../../../assets/icons/share-light.png')}
+              />
             </TouchableOpacity>
-            <View style={styles.popWindow}>
-                <LinearGradient
-                    colors={['#ebf9ff', '#ffffff']} // 渐变颜色从淡蓝到白色
-                    style={styles.linearGradient}
-                >
-                    <Text style={styles.headerText}>摄像机</Text>
-                    <View style={styles.HeaderListView}>
-                        <TouchableOpacity onPress={reversalIfOffLine}>
-                            <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image>
-                        </TouchableOpacity>
-                        {/* <Image style={styles.HeaderListViewImg} source={require('./../../../assets/icons/share-light.png')}></Image> */}
-                    </View>
-                </LinearGradient>
-                <SpliteLine lineHeight={2} color="#ccc" style={styles.spliteLine} />
-                <View style={[{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}>
-                    <PopDetail title="流量充值" />
-                    <PopDetail title="告警信息" />
-                    <PopDetail title="录像回放" />
-                    <PopDetail title="设备设置" />
-                    <PopDetail title="设备分享" />
-                    <PopDetail title={ifOffline.toString()} />
-                </View>
-            </View>
+          </View>
+        </LinearGradient>
+
+        <SpliteLine lineHeight={2} color="#ccc" style={styles.spliteLine} />
+        
+        <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <PopDetail title="流量充值" />
+          <PopDetail title="告警信息" />
+          <PopDetail title="录像回放" />
+          <PopDetail title="设备设置" />
+          <PopDetail title="设备分享" />
         </View>
-    );
+      </View>
+    </View>
+  );
 };
 
-const mapStateToProps = (state) => ({
-    ifShowpop: state.ifShow.ifShowpop,
-    ifOffline: state.ifShow.ifOffline,
-
-});
-
-const mapDispatchToProps = {
-    reversalIsShowMore,
-    reversalIfOffLine,
-    reversal
-};
-
+// 样式部分保持不变...
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
@@ -123,5 +123,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoreFunc);
+export default MoreFunc;
 

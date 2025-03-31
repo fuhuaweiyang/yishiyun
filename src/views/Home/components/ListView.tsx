@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // 添加hooks导入
+import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '../../../hooks/useTheme';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Device from './Device';
@@ -10,17 +10,16 @@ import PopHelper from './PopHelper';
 import { togglePopup, toggleShowMore, toggleHelper } from '../../../store/uiSlice';
 import type { RootState } from '../../../store/store';
 
-const ListView = () => {// 使用memo优化组件
+const ListView = () => {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState('system');
   const dispatch = useDispatch();
 
-  // 使用类型化的useSelector
-  const { ifShowpop, isShowMore, ifShowHelper } = useSelector((state: RootState) => ({
-    ifShowpop: state.ui.ifShowpop,
-    isShowMore: state.ui.isShowMore,
-    ifShowHelper: state.ui.ifShowHelper
-  }));
+
+  const ifShowpop = useSelector((state: RootState) => state.ui.ifShowpop);
+  const isShowMore = useSelector((state: RootState) => state.ui.isShowMore);
+  const ifShowHelper = useSelector((state: RootState) => state.ui.ifShowHelper);
+
 
   const handleTabSwitch = (tab: string) => {
     setActiveTab(tab);
@@ -56,9 +55,9 @@ const ListView = () => {// 使用memo优化组件
 
       <View style={styles.headerRight}>
         <TouchableOpacity onPress={changePop} activeOpacity={0.7}>
-          <Image 
-            source={require('./../../../assets/icons/add.png')} 
-            style={[styles.img]} 
+          <Image
+            source={require('./../../../assets/icons/add.png')}
+            style={[styles.img]}
           />
         </TouchableOpacity>
       </View>
