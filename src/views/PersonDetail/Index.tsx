@@ -1,7 +1,7 @@
+import React from 'react'; 
 import Detail from './components/Detail'
 import { ScrollView, Text, View, Image, Pressable, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { Button } from '../../../node_modules/react-native/types/index';
 
 
 const PersonDetail = () => {

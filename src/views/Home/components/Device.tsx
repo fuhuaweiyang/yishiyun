@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Text, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Video from "react-native-video";
 import notifee from "@notifee/react-native";
 import { useTheme } from '../../../hooks/useTheme';
 import type { RootState } from '../../../store/store';
-import { togglePopup, toggleShowMore, toggleOffline, toggleHelper } from '../../../store/uiSlice';
+import { togglePopup, toggleShowMore, toggleHelper } from '../../../store/uiSlice';
+
 
 const CenteredImage = React.memo(() => {
   const dispatch = useDispatch();
   const { theme } = useTheme();
   const { width, height } = Dimensions.get('window');
   const [isPlaying, setIsPlaying] = useState(false);
-  
-  // 从Redux获取状态
-  const ifOffline  = useSelector((state: RootState) => state.ui.ifOffline);
 
+  // 从Redux获取状态
+  const ifOffline = useSelector((state: RootState) => state.ui.ifOffline);
+  const deviceList = useSelector((state: RootState) => state.devices.deviceList);
   // 通知功能保持不变
   async function onDisplayNotification() {
     await notifee.requestPermission();
@@ -32,77 +33,85 @@ const CenteredImage = React.memo(() => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.backgroundColor, width, height }]}>
-      <View style={styles.roundedBox}>
-        <View style={styles.containerVideo}>
-          <View style={styles.stateIconView}>
-            <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon} />
-          </View>
+      <ScrollView>
+        {
+          deviceList.map((devive, index) => {
+            return (
+              <View style={styles.roundedBox}>
+                <View style={styles.containerVideo}>
+                  <View style={styles.stateIconView}>
+                    <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon} />
+                  </View>
 
-          {!isPlaying ? (
-            <View style={styles.thumbnailContainer}>
-              <ImageBackground 
-                source={require("./../../../assets/1.png")} 
-                style={[styles.thumbnail]}>
-                <View style={ifOffline && styles.thumbnailMask}></View>
-              </ImageBackground>
-              
-              <TouchableOpacity
-                onPress={() => !ifOffline && setIsPlaying(true)}
-              >
-                <Image
-                  style={styles.playImg}
-                  source={
-                    ifOffline
-                      ? require("./../../../assets/icons/offline.webp")
-                      : require("./../../../assets/icons/adsail_player_center_play.png")
-                  }
-                />
-              </TouchableOpacity>
+                  {!isPlaying ? (
+                    <View style={styles.thumbnailContainer}>
+                      <ImageBackground
+                        source={require("./../../../assets/1.png")}
+                        style={[styles.thumbnail]}>
+                        <View style={ifOffline && styles.thumbnailMask}></View>
+                      </ImageBackground>
 
-              {ifOffline && (
-                <>
-                  <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
-                  <TouchableOpacity onPress={() => dispatch(toggleHelper())}>
-                    <View style={styles.maskButton}>
-                      <Text style={[styles.maskText, { fontSize: 14 }]}>查看帮助</Text>
+                      <TouchableOpacity
+                        onPress={() => !ifOffline && setIsPlaying(true)}
+                      >
+                        <Image
+                          style={styles.playImg}
+                          source={
+                            ifOffline
+                              ? require("./../../../assets/icons/offline.webp")
+                              : require("./../../../assets/icons/adsail_player_center_play.png")
+                          }
+                        />
+                      </TouchableOpacity>
+
+                      {ifOffline && (
+                        <>
+                          <Text style={[styles.maskText, { fontSize: 16 }]}>设备离线了</Text>
+                          <TouchableOpacity onPress={() => dispatch(toggleHelper())}>
+                            <View style={styles.maskButton}>
+                              <Text style={[styles.maskText, { fontSize: 14 }]}>查看帮助</Text>
+                            </View>
+                          </TouchableOpacity>
+                        </>
+                      )}
                     </View>
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-          ) : (
-            <Video
-              source={require("./../../../assets/fireFly.mp4")}
-              style={styles.video}
-              resizeMode="cover"
-              controls={true}
-              onEnd={() => setIsPlaying(false)}
-            />
-          )}
-        </View>
+                  ) : (
+                    <Video
+                      source={require("./../../../assets/fireFly.mp4")}
+                      style={styles.video}
+                      resizeMode="cover"
+                      controls={true}
+                      onEnd={() => setIsPlaying(false)}
+                    />
+                  )}
+                </View>
 
-        <View style={[styles.bottonView, { backgroundColor: theme.itemBackgroundColor }]}>
-          <Text style={[styles.text, { color: theme.TextColor }]}>我的摄像机</Text>
-          <View style={styles.bottonIconView}>
-            <TouchableOpacity>
-              <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onDisplayNotification}>
-              <Image source={require('./../../../assets/icons/bell.png')} style={styles.bottomIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => dispatch(toggleShowMore())}>
-              <Image source={require('./../../../assets/icons/commet-light.png')} style={styles.bottomIcon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+                <View style={[styles.bottonView, { backgroundColor: theme.itemBackgroundColor }]}>
+                  <Text style={[styles.text, { color: theme.TextColor }]}>{devive.type}</Text>
+                  <View style={styles.bottonIconView}>
+                    <TouchableOpacity>
+                      <Image source={require('./../../../assets/icons/phoneCard.png')} style={styles.bottomIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onDisplayNotification}>
+                      <Image source={require('./../../../assets/icons/bell.png')} style={styles.bottomIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => dispatch(toggleShowMore())}>
+                      <Image source={require('./../../../assets/icons/commet-light.png')} style={styles.bottomIcon} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            )
+          })
+        }
 
-      <View style={[styles.AddRoundedBox, { backgroundColor: theme.itemBackgroundColor }]}>
-        <TouchableOpacity onPress={() => dispatch(togglePopup())}>
-          <Image source={require('./../../../assets/icons/add_2png.png')} style={styles.iconAdd} />
-        </TouchableOpacity>
-        <Text style={[styles.addText, { color: theme.TextColor }]}>添加摄像机</Text>
-      </View>
+        <View style={[styles.AddRoundedBox, { backgroundColor: theme.itemBackgroundColor }]}>
+          <TouchableOpacity onPress={() => dispatch(togglePopup())}>
+            <Image source={require('./../../../assets/icons/add_2png.png')} style={styles.iconAdd} />
+          </TouchableOpacity>
+          <Text style={[styles.addText, { color: theme.TextColor }]}>添加摄像机</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 });

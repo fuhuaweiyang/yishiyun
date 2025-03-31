@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 
   navs: {
     display: 'flex',
-    flexDirection: 'col',
+    flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     flexDirection: 'row',
-    alignItem: 'center',
+    alignItems: 'center',
     height: 40,
     marginLeft: 10,
   },

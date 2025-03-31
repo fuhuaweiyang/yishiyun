@@ -10,7 +10,7 @@ interface AuthState {
 const initialState: AuthState = {
   isLoading: false,
   iflogin: false,
-  user: { username: 'shui' },
+  user: { username: 'null' },
   error: null,
 };
 
@@ -41,7 +41,7 @@ export const login = (credentials: { username: string; password: string }): Thun
   (dispatch) => {
     console.log('调用dispatchlogin',credentials)
     dispatch(loginRequest());
-    if (credentials.username === 'shuiyue' && credentials.password === '123456') {
+    if (credentials.username === 'shuiyue2530' && credentials.password === '123456') {
       console.log('调用dispatchlogin成功')
       dispatch(loginSuccess({ username: credentials.username }));
     } else {

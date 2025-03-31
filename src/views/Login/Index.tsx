@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import ListView from './components/ListView'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/authSlice'
-import type { RootState } from '../../../store/store';
+import type { RootState } from '../../store/store';
 
 const Login = () => {
   const navigation = useNavigation()

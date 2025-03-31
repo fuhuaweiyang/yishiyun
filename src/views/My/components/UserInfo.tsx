@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux';
-import { login } from "../../../action/authAction";
 import { useTheme } from '../../../hooks/useTheme';
 
 const UserInfo = ({ username }) => {
@@ -23,7 +22,7 @@ const UserInfo = ({ username }) => {
   const { theme } = useTheme()
 
   return (
-    <View style={styles.containerback}>
+    <View style={styles.container}>
       {/* 图片背景 */}
       <Image
         source={require('../../../assets/publicImg/background.png')}
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   username: state.auth.user ? state.auth.user.username : null,
 });
 
