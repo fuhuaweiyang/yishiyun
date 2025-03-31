@@ -4,6 +4,7 @@ import ListView from "./components/ListView";
 import { useNavigation } from '@react-navigation/native';
 import Compare from "./components/Compare";
 import { useTheme } from "../../hooks/useTheme";
+import ContainerText from "../../components/ContainerText";
 const Index = () => {
   const navigation = useNavigation();
   const handleClose = () => {
@@ -33,9 +34,9 @@ const Index = () => {
 
         <View style={styles.serverItem}>
           {/* 子标题文本应用主题色 */}
-          <Text style={[styles.serverItemHeaderText, { color: theme.TextColor }]}>
+          <ContainerText style={[styles.serverItemHeaderText, { color: theme.TextColor }]}>
             服务优势
-          </Text>
+          </ContainerText>
           <ListView />
           <Compare />
         </View>
@@ -64,12 +65,12 @@ const Index = () => {
           },
         ].map((item, index) => (
           <View key={index} style={styles.serverItem}>
-            <Text style={[styles.serverItemHeaderText, { color: theme.TextColor }]}>
+            <ContainerText style={[styles.serverItemHeaderText, { color: theme.TextColor }]}>
               {item.title}
-            </Text>
-            <Text style={[styles.serverItemContentText, { color: theme.TextColor }]}>
+            </ContainerText>
+            <ContainerText style={[styles.serverItemContentText, { color: theme.TextColor }]}>
               {item.content}
-            </Text>
+            </ContainerText>
             <Image source={item.img} style={styles.itemImg} />
           </View>
         ))}
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   serverItem: {
     width: '90%',
     display: 'flex',
-    flexDirection: 'col',
+    flexDirection: 'column',
     alignItems: 'center',
     margin: '3%',
   },

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import ButtonDetail from './components/ButtonDetail';
 import React from 'react';
 import { useTheme } from '../../hooks/useTheme'
+import ContainerText from '../../components/ContainerText'
 
 const PersonDetail = () => {
     const navigation = useNavigation()
@@ -25,7 +26,7 @@ const PersonDetail = () => {
             <ScrollView
                 contentContainerStyle={styles.scrollViewContent}
                 showsVerticalScrollIndicator={false}>
-                <Text style={[styles.headerText,{color:theme.TextColor}]}>设置</Text>
+                <ContainerText style={[styles.headerText]}>设置</ContainerText>
                 <View style={[styles.settingView,{backgroundColor:theme.backgroundColor}]}>
                     <ButtonDetail title="夜间模式" changeFun={toggleTheme}></ButtonDetail>
                     <Detail title="预览模式" value="实时" />

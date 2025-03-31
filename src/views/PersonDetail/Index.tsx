@@ -2,7 +2,7 @@ import React from 'react';
 import Detail from './components/Detail'
 import { ScrollView, Text, View, Image, Pressable, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-
+import ContainerText from '../../components/ContainerText'
 
 const PersonDetail = () => {
     const navigation = useNavigation()
@@ -22,16 +22,16 @@ const PersonDetail = () => {
             <ScrollView
                 contentContainerStyle={styles.scrollViewContent}
                 showsVerticalScrollIndicator={false}>
-                <View style={{ marginTop: 20 }}>
-                    <Text style={[styles.titleText, { marginTop: 0 }]}>基本资料</Text>
+                <View style={{ marginTop: 40 }}>
+                    <ContainerText style={[styles.titleText, { marginTop: 0 }]}>基本资料</ContainerText>
                     <Detail title="账号" />
                     <Detail title="邮箱" />
                     <Detail title="手机" />
                     <Detail title="微信" />
-                    <Text style={styles.titleText}>基本资料</Text>
+                    <ContainerText style={styles.titleText}>基本资料</ContainerText>
                     <Detail title="账号" />
                     <Detail title="邮箱" />
-                    <Text style={styles.titleText}>基本资料</Text>
+                    <ContainerText style={styles.titleText}>基本资料</ContainerText>
                     <Detail title="账号" />
                     <Detail title="邮箱" />
                 </View>

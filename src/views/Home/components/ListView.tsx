@@ -37,7 +37,7 @@ const ListView = () => {
           onPress={() => handleTabSwitch('system')}
           style={styles.tabItem}
           activeOpacity={0.7}>
-          <ContainerText style={[styles.tabLabel, activeTab === 'system' && styles.activeTab]}>
+          <ContainerText style={[activeTab === 'system' ? styles.activeTab: styles.tabLabel]}>
             设备
           </ContainerText>
         </TouchableOpacity>
@@ -45,7 +45,7 @@ const ListView = () => {
           onPress={() => handleTabSwitch('warn')}
           style={styles.tabItem}
           activeOpacity={0.7}>
-          <ContainerText style={[styles.tabLabel, activeTab === 'warn' && styles.activeTab]}>
+          <ContainerText style={[activeTab === 'warn' ? styles.activeTab : styles.tabLabel ]}>
             分组
           </ContainerText>
         </TouchableOpacity>
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   activeTab: {
-    color: '#1e80ff',  // Active tab color
+    fontSize: 20,
+    color: '#1e80ff', 
   },
   headerRight: {
     position: 'absolute',

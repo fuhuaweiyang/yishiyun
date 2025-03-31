@@ -2,15 +2,16 @@ import React from "react";
 import { Image, Alert, Pressable, View, Text, StyleSheet, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from "../../../hooks/useTheme";
+import ContainerText from "../../../components/ContainerText";
 
 const Compare = () => {
     const { theme, isDarkMode } = useTheme();
     return (
         <View>
             <View style={styles.headerView}>
-                <Text style={[styles.headerText,{color:theme.TextColor}]}>云存储</Text>
+                <ContainerText style={[styles.headerText,{color:theme.TextColor}]}>云存储</ContainerText>
                 <Image source={require('../../../assets/icons/VS.png')} style={styles.img}></Image>
-                <Text style={[styles.headerText,{color:theme.TextColor}]}>卡存储</Text>
+                <ContainerText style={[styles.headerText,{color:theme.TextColor}]}>卡存储</ContainerText>
             </View>
             <View style={styles.CardAndCloudView}>
                 <View>
@@ -19,16 +20,16 @@ const Compare = () => {
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         style={[styles.linearGradient]}>
-                        <Text style={[styles.cloudHeaderText]}>
+                        <ContainerText style={[styles.cloudHeaderText]}>
                             云存储
-                        </Text>
+                        </ContainerText>
                     </LinearGradient>
                     <View style={[styles.storageBoxCloud,{backgroundColor:isDarkMode?"#46392e":"#efe4d5"}]}>
-                        <Text style={styles.cloudContentText}>24h实时监测云端守护</Text>
-                        <Text style={styles.cloudContentText}>云端存储随时回看</Text>
-                        <Text style={styles.cloudContentText}>无限空间容量</Text>
-                        <Text style={styles.cloudContentText}>高倍速播放</Text>
-                        <Text style={styles.cloudContentText}>屏蔽第三方广告</Text>
+                        <ContainerText style={styles.cloudContentText}>24h实时监测云端守护</ContainerText>
+                        <ContainerText style={styles.cloudContentText}>云端存储随时回看</ContainerText>
+                        <ContainerText style={styles.cloudContentText}>无限空间容量</ContainerText>
+                        <ContainerText style={styles.cloudContentText}>高倍速播放</ContainerText>
+                        <ContainerText style={styles.cloudContentText}>屏蔽第三方广告</ContainerText>
                     </View>
                 </View>
                 <View style={styles.storageBoxCard}>
@@ -36,11 +37,11 @@ const Compare = () => {
                         <Text style={[styles.cardText,{marginBottom:10,color:theme.TextColor}]}>卡存储</Text>
                     </View>
                     <View style={[styles.storageBoxCardHeader,{ backgroundColor: isDarkMode?'#303030':'#edf4f6'}]}>
-                        <Text style={[styles.cardText,{color:theme.TextColor}]}>仅支持本地录像</Text>
-                        <Text style={[styles.cardText,{color:theme.TextColor}]}>掉线/卡损坏/无法回看</Text>
-                        <Text style={[styles.cardText,{color:theme.TextColor}]}>有容量限制</Text>
-                        <Text style={[styles.cardText,{color:theme.TextColor}]}>1倍速播放</Text>
-                        <Text style={[styles.cardText,{color:theme.TextColor}]}>无屏蔽</Text>
+                        <ContainerText style={[styles.cardText]}>仅支持本地录像</ContainerText>
+                        <ContainerText style={[styles.cardText]}>掉线/卡损坏/无法回看</ContainerText>
+                        <ContainerText style={[styles.cardText]}>有容量限制</ContainerText>
+                        <ContainerText style={[styles.cardText]}>1倍速播放</ContainerText>
+                        <ContainerText style={[styles.cardText]}>无屏蔽</ContainerText>
                     </View>
                 </View>
             </View>

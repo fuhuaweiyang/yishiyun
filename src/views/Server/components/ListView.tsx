@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Alert, Pressable, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../hooks/useTheme';
+import  ContainerText  from '../../../components/ContainerText';
 
 const FastNav = (props: any) => {
   const { theme } = useTheme();
@@ -50,7 +51,7 @@ const FastNav = (props: any) => {
             <View style={styles.iconContainer}>
               <Image style={styles.icon} source={item.icon} />
             </View>
-            <Text style={[styles.text,{color:theme.TextColor}]}>{item.title}</Text>
+            <ContainerText style={[styles.text,{color:theme.TextColor}]}>{item.title}</ContainerText>
           </Pressable>
         );
       })}
