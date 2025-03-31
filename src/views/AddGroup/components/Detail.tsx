@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     navs: {
         display: 'flex',
-        flexDirection: 'col',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         width: '100%',
         flexDirection: 'row',
-        alignItem: 'center',
         justifyContent: 'center',
         height: 30,
         marginLeft: 10,

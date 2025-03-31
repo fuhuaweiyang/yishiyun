@@ -37,7 +37,7 @@ const CenteredImage = React.memo(() => {
         {
           deviceList.map((devive, index) => {
             return (
-              <View style={styles.roundedBox}>
+              <View  key={index}  style={styles.roundedBox}>
                 <View style={styles.containerVideo}>
                   <View style={styles.stateIconView}>
                     <Image source={require('./../../../assets/icons/battery_empty.png')} style={styles.bottomIcon} />

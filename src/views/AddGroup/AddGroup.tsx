@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#f11212',
         textAlign: 'center',
-        textVerticalAlign: 'center',
         height: 50,
         width: 200,
         borderRadius: 20,

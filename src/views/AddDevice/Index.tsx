@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { RootState, AppDispatch } from '../../store/store';
 import { fetchDevices, addDevice } from '../../store/deviceSlice';
 
 
 const DeviceListScreen = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { deviceList, devicesSeacrch, loading, error } = useSelector((state: RootState) => state.devices);
 
   // 初始化设备
@@ -85,7 +85,7 @@ const DeviceListScreen = () => {
                   dispatch(addDevice(device))
                   console.log('设备已添加：')
                   console.log(deviceList)
-                }} // 添加此行
+                }}
               >
                 <Text style={styles.addButtonText}>添加</Text>
               </TouchableOpacity>
@@ -116,8 +116,13 @@ const DeviceListScreen = () => {
   );
 };
 
-// 新增样式
-const extendedStyles = StyleSheet.create({
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#f0f2f5',
+    padding: 16,
+  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -128,14 +133,6 @@ const extendedStyles = StyleSheet.create({
     color: '#ff4d4f',
     fontSize: 16,
     padding: 20,
-  },
-});
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: '#f0f2f5',
-    padding: 16,
   },
   header: {
     flexDirection: 'row',
